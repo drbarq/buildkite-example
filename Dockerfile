@@ -2,10 +2,10 @@ FROM golang:1.18.0
 
 WORKDIR /app
 
-# Explicitly copy the hello.go file into the container
-COPY hello_dir/hello.go /app/hello_dir/
+# Copy all the files into the container
+COPY . .
 
-# Verify the file exists in the container
+# Verify files were copied
 RUN ls -R /app && cat /app/hello_dir/hello.go
 
 # Build the Go application
