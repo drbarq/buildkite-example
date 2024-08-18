@@ -1,9 +1,32 @@
 steps:
-  - label: "Verify Buildkite Directory Structure"
-    command:
-      - "ls -R"
-  - label: "Run Hello Binary Inside Docker Container"
+  - label: "Build Go Application"
     plugins:
-      - docker-compose#v3.0.3:
-          run: app
-          command: ["./hello_binary"]
+      - docker#v5.3.0:
+          image: "golang:1.18.0"
+          workdir: "/app"
+          command:
+            - "cd /app/hello_dir && go build -o ../hello_binary hello.go"
+    artifact_paths:
+      - "hello_binary"
+
+  - wait
+
+  - block: "Enter your name"
+    prompt: "Please enter your name:"
+    key: "username"
+
+  - label: "Run Hello Program"
+    command: |
+      buildkite-agent artifact download "hello_binary" .
+      chmod +x hello_binary
+      ./hello_binary "$(buildkite-agent meta-data get username)"
+
+# steps:
+#   - label: "Verify Buildkite Directory Structure"
+#     command:
+#       - "ls -R"
+#   - label: "Run Hello Binary Inside Docker Container"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           run: app
+#           command: ["./hello_binary"]
