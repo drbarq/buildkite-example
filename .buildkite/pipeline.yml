@@ -8,8 +8,9 @@ steps:
         key: "NAME"
         required: true
 
-  # - label: "Run Script"
-  #   command: script.sh
+  - label: "Run Script"
+    command: script.sh
+
   - label: "Store NAME in meta-data"
     command: |
       NAME=$(buildkite-agent meta-data get NAME)
@@ -31,12 +32,16 @@ steps:
 
   - wait
 
-
   - label: "Run Hello Binary with Name"
     plugins:
       - docker-compose#v5.3.0:
           run: app
-          command: ["/bin/sh", "-c", "NAME=$(buildkite-agent meta-data get stored-name) && ./hello_binary \"$NAME\""]
+          command:
+            [
+              "/bin/sh",
+              "-c",
+              'NAME=$(buildkite-agent meta-data get stored-name) && ./hello_binary "$NAME"',
+            ]
           env:
             - BUILDKITE_AGENT_ACCESS_TOKEN
 
@@ -47,16 +52,16 @@ steps:
   #         command: ["./hello_binary", "$$NAME"]
   #         environment:
   #           - NAME=${NAME:-$(buildkite-agent meta-data get NAME)}
-          # command:
-          #   [
-          #     "/bin/sh",
-          #     "-c",
-          #     'NAME=$(buildkite-agent meta-data get NAME) && ./hello_binary "$NAME"',
-          #   ]
-          # propagate-environment: true
-          # command:
-          #   - buildkite-agent meta-data get NAME
-          # propagate-environment: true
+  # command:
+  #   [
+  #     "/bin/sh",
+  #     "-c",
+  #     'NAME=$(buildkite-agent meta-data get NAME) && ./hello_binary "$NAME"',
+  #   ]
+  # propagate-environment: true
+  # command:
+  #   - buildkite-agent meta-data get NAME
+  # propagate-environment: true
 
   # - label: "Run Hello Binary Directly"
   #   plugins:
