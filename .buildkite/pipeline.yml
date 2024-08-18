@@ -24,15 +24,50 @@ steps:
             [
               "sh",
               "-c",
-              "[ -d hello ] && cd hello && go build -o hello hello.go && mv hello .. && cd .. && ./hello Buildkite || echo 'Directory hello not found'",
+              "[ -d hello ] && cd hello && go build -o hello_binary hello.go && mv hello_binary .. && cd .. && ./hello_binary Buildkite || echo 'Directory hello not found'",
             ]
     artifact_paths:
-      - hello
+      - hello_binary
 
   - wait
 
   - label: "Run Hello Program"
-    command: "./hello Buildkite"
+    command: "./hello_binary Buildkite"
+# steps:
+#   - label: "Debug Directory Structure"
+#     plugins:
+#       - docker#v5.11.0:
+#           image: "golang:1.18.0"
+#           workdir: "/app"
+#           volumes:
+#             - ".:/app"
+#           command:
+#             [
+#               "sh",
+#               "-c",
+#               "mkdir -p /app/hello && ls -R /app && ls -R /app/hello",
+#             ]
+
+#   - label: "Build Go Application"
+#     plugins:
+#       - docker#v5.11.0:
+#           image: "golang:1.18.0"
+#           workdir: "/app"
+#           volumes:
+#             - ".:/app"
+#           command:
+#             [
+#               "sh",
+#               "-c",
+#               "[ -d hello ] && cd hello && go build -o hello hello.go && mv hello .. && cd .. && ./hello Buildkite || echo 'Directory hello not found'",
+#             ]
+#     artifact_paths:
+#       - hello
+
+#   - wait
+
+#   - label: "Run Hello Program"
+#     command: "./hello Buildkite"
 #   - label: "Build Go Application"
 #     plugins:
 #       - docker#v3.7.0:
