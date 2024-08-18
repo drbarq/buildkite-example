@@ -32,7 +32,7 @@ steps:
   - wait
 
   - label: "Run Hello Program"
-    command: "./hello Buildkite"
+    command: "./hello/hello.go Buildkite"
 #   - label: "Build Go Application"
 #     plugins:
 #       - docker#v3.7.0:
