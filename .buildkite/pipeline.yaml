@@ -3,9 +3,9 @@ steps:
     plugins:
       - docker#v3.7.0:
           image: "golang:1.18.0"
-          workdir: "/app"
+          workdir: "/app/hello"
           volumes:
-            - "./hello:/app"
+            - ".:/app"
           command: "go build -o hello"
     artifact_paths:
       - "hello/hello"
@@ -16,9 +16,9 @@ steps:
     plugins:
       - docker#v3.7.0:
           image: "alpine:latest"
-          workdir: "/app"
+          workdir: "/app/hello"
           volumes:
-            - "./hello:/app"
+            - ".:/app"
           command: './hello "$(buildkite-agent meta-data get name)"'
     artifact_paths:
       - "hello/hello"
