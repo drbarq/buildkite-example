@@ -1,11 +1,9 @@
 FROM golang:1.18.0
 
-WORKDIR /example
+WORKDIR /app
 
 COPY . .
 
-WORKDIR /example/hello
+RUN go build -o hello/hello ./hello/hello.go
 
-RUN go build -o hello
-
-CMD ["./hello"]
+CMD ["./hello/hello"]

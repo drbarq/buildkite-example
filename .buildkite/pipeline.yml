@@ -1,10 +1,4 @@
 steps:
-  - label: "Debug: List directory"
-    command:
-      - pwd
-      - ls -R
-      - cat go.mod
-
   - label: "Build Go Application"
     plugins:
       - docker#v5.11.0:
@@ -12,20 +6,19 @@ steps:
           workdir: "/app"
           volumes:
             - ".:/app"
-          # command: ["sh", "-c", "go build -o hello ./hello/hello.go"]
           command:
             [
               "sh",
               "-c",
-              "go mod init github.com/drbarq/buildkite-example && go build -o hello ./hello/hello.go",
+              "go build -o hello ./hello/hello.go && mv hello ./hello/",
             ]
     artifact_paths:
-      - hello
+      - hello/hello
 
   - wait
 
   - label: "Run Hello Program"
-    command: "./hello Buildkite"
+    command: "./hello/hello Buildkite"
 # steps:
 #   - label: "Build Go Application"
 #     plugins:
