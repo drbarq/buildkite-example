@@ -6,7 +6,7 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          command: ls -R /
+          command: ["ls", "-R", "/"]
 
           # sdf
   # - command: |
