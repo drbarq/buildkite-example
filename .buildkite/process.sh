@@ -49,4 +49,6 @@ steps:
           - label: ":wave: Say hello again"
             value: "say_hello"
 
-  - label:
+  - label: ":robot_face: Process Input Again"
+    command: ".buildkite/process_again.sh"
+YAML
