@@ -1,10 +1,8 @@
 steps:
-  - label: "Debug hello.go Presence"
-    plugins:
-      - docker#v5.11.0:
-          image: "golang:1.18.0"
-          workdir: "/app"
-          command: ["sh", "-c", "ls -R /app && cat /app/hello_dir/hello.go"]
+  - label: "Check hello.go Presence without Docker"
+    command:
+      - "ls -R hello_dir"
+      - "cat hello_dir/hello.go"
 # steps:
 #   - label: "Debug Directory Structure"
 #     plugins:
