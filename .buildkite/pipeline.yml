@@ -33,29 +33,25 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
-  - label: "Install Docker Compose"
-    command: |
-      curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*?(?=")')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      chmod +x /usr/local/bin/docker-compose
-      docker-compose --version
 
-  - label: "Docker Test %n"
-    command: test.sh
+  # - label: "Install Docker Compose"
+  #   command: |
+  #     curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*?(?=")')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  #     chmod +x /usr/local/bin/docker-compose
+  #     docker-compose --version
+
+  - label: "Build and Test Application"
     plugins:
       - docker-compose#v3.0.3:
+          build: app
           run: app
-
-  - label: "Build Go Application"
-    plugins:
-      - docker#v5.11.0:
-          image: "golang:1.18.0"
-          workdir: "/app"
-          command:
-            [
-              "sh",
-              "-c",
-              "cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go",
-            ]
+          command: >
+            sh -c "
+            ls -R /app &&
+            cat /app/hello_dir/hello.go &&
+            cd /app/hello_dir &&
+            GO111MODULE=off go build -o ../hello_binary hello.go &&
+            ../hello_binary 'Buildkite'"
     artifact_paths:
       - hello_binary
 
