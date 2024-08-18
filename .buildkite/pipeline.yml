@@ -1,5 +1,5 @@
 steps:
-  - label: "Build and Check Go Application in Docker"
+  - label: "Build and Run Go Application in Docker"
     plugins:
       - docker#v5.11.0:
           image: "golang:1.18.0"
@@ -8,7 +8,7 @@ steps:
             [
               "sh",
               "-c",
-              "ls -R /app && cat /app/hello_dir/hello.go && cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go",
+              "ls -R /app && cat /app/hello_dir/hello.go && cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go && ../hello_binary 'Buildkite'",
             ]
 # steps:
 #   - label: "Debug Directory Structure"
