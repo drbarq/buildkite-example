@@ -9,7 +9,7 @@ services:
     working_dir: /app
     environment:
       - NAME=${NAME}
-    command: sh -c './hello_binary "$NAME"'
+    command: sh -c 'echo "Running hello_binary with NAME=$NAME" && ./hello_binary "$NAME"'
     # command: ./hello_binary Buildkite
 
     # command: sh -c "./test.sh"
