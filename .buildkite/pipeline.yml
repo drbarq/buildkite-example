@@ -52,12 +52,14 @@ steps:
       - docker-compose#v3.0.3:
           run: app
           command:
-            - "sh"
-            - "-c"
-            - |
-              NAME=$(buildkite-agent meta-data get NAME)
-              echo "Retrieved NAME: $NAME"
-              /app/hello_binary "$NAME"
+            - Joe
+          # command:
+          #   - "sh"
+          #   - "-c"
+          #   - |
+          #     NAME=$(buildkite-agent meta-data get NAME)
+          #     echo "Retrieved NAME: $NAME"
+          #     /app/hello_binary "$NAME"
           # command:
           #   - /app/hello_binary
           #   - buildkite-agent meta-data get NAME
