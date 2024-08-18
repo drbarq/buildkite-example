@@ -1,20 +1,42 @@
 #!/bin/bash
 set -euo pipefail
 
-NAME=$(buildkite-agent meta-data get NAME)
+NAME=""
+until [ ${#NAME} -gt 0 ]
+do
+  echo "Script is checking for NAME"
+  NAME=$(buildkite-agent meta-data get NAME)
+  echo "Script run by $NAME"
+  buildkite-agent meta-data set "NAME" "$NAME"
+  NAME2=$(buildkite-agent meta-data get NAME)
+  echo "stored var $NAME2"
+  sleep 5
+done
+
 echo "Retrieved NAME from meta-data: $NAME"
 
 buildkite-agent pipeline upload << YAML
 steps:
-  - label: "Debug NAME variable"
+  - label: "Retrieve NAME"
     command: |
-      echo "NAME from meta-data: \$(buildkite-agent meta-data get NAME)"
+      echo "Retrieving NAME from metadata..."
+      BUILDKITE_NAME=\$(buildkite-agent meta-data get NAME || echo "DefaultName")
+      buildkite-agent meta-data set BUILDKITE_NAME "\$BUILDKITE_NAME"
+      echo "BUILDKITE_NAME is set to: \$BUILDKITE_NAME"
 
-  - label: "Run Hello Binary in Docker"
-    command: |
-      NAME=\$(buildkite-agent meta-data get NAME)
-      echo "Running Docker with NAME: \$NAME"
-      docker-compose run --rm app ./hello_binary "\$NAME"
+  - label: ":docker: Build"
+    plugins:
+      - docker-compose#v5.3.0:
+          build: app
+
+  - wait
+
+  - label: "Run Hello Binary with Name"
+    plugins:
+      - docker-compose#v5.3.0:
+          run: app
+          command: ["./hello_binary", "\$\$BUILDKITE_NAME"]
+          propagate-environment: true
 
   - block: ":thinking_face: What now?"
     prompt: "Choose the next action"

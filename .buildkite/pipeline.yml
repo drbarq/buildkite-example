@@ -1,18 +1,15 @@
 steps:
+  - label: "Verify Buildkite Directory Structure"
+    command:
+      - "ls -R"
+
+  - label: "Build Go Application"
+    plugins:
+      - docker-compose#v3.0.3:
+          build: app
+    artifact_paths:
+      - "hello_binary"
+
   - label: ":magic_wand: Let's Begin"
     key: "begin"
     command: ".buildkite/setup.sh"
-
-  - block: ":thinking_face: What now?"
-    prompt: "Choose the next action"
-    fields:
-      - select: "Action"
-        key: "action"
-        options:
-          - label: ":input_numbers: Enter your name"
-            value: "enter_name"
-          - label: ":wave: Say hello"
-            value: "say_hello"
-
-  - label: ":robot_face: Process Input"
-    command: ".buildkite/process.sh"
