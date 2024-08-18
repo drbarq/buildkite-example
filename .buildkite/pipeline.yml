@@ -36,13 +36,23 @@ steps:
   #   env:
   #     NAME: ${NAME:-$(buildkite-agent meta-data get NAME)}
 
-  - label: "Run Hello Binary Directly"
+  # - label: "Run Hello Binary Directly"
+  #   plugins:
+  #     - docker-compose#v3.0.3:
+  #         run: app
+  #         propagate-environment: true
+  #         command:
+  #           - /app/hello_binary johnny
+
+  - label: "Run Hello Binary with Name"
     plugins:
       - docker-compose#v3.0.3:
           run: app
           propagate-environment: true
           command:
-            - /app/hello_binary johnny
+            - /bin/sh
+            - -c
+            - '/app/hello_binary "$(buildkite-agent meta-data get NAME)"'
   # command:
   #   - "sh"
   #   - "-c"
