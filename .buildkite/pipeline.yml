@@ -2,11 +2,11 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
-  - label: "Verify Directory Structure in Docker Container"
+  - label: "Run Hello Binary Inside Docker Container"
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          command: ["ls", "-R", "/"]
+          command: ["./hello_binary", "Buildkite"]
 
           # sdf
   # - command: |
