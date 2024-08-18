@@ -36,7 +36,8 @@ WORKDIR /app
 COPY . .
 
 # Build the Go application
-RUN cd /app/hello_dir && go build -o ../hello_binary hello.go
+# RUN cd /app/hello_dir && go build -o ../hello_binary hello.go
+RUN cd /app/hello_dir && go build -o /app/hello_binary hello.go
 
 # Use ENTRYPOINT to ensure arguments are passed to the binary
 # ENTRYPOINT ["./hello_binary"]

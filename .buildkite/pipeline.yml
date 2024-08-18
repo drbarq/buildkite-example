@@ -53,7 +53,8 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          command: ["./hello_binary", "$$NAME"]
+          # command: ["./hello_binary", "$$NAME"]
+          command: ["/bin/sh", "-c", "./hello_binary \"$NAME\""]
 
   # - label: "Run Hello Binary Directly"
   #   # command:
