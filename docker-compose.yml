@@ -9,10 +9,22 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    command: >
-      sh -c "
-      ls -R /app &&
-      cat /app/hello_dir/hello.go &&
-      cd /app/hello_dir &&
-      GO111MODULE=off go build -o ../hello_binary hello.go &&
-      ../hello_binary 'Buildkite'"
+    command: sh -c "./test.sh"
+# version: "3.8"
+
+# services:
+#   app:
+#     image: golang:1.18.0
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     volumes:
+#       - .:/app
+#     working_dir: /app
+#     command: >
+#       sh -c "
+#       ls -R /app &&
+#       cat /app/hello_dir/hello.go &&
+#       cd /app/hello_dir &&
+#       GO111MODULE=off go build -o ../hello_binary hello.go &&
+#       ../hello_binary 'Buildkite'"
