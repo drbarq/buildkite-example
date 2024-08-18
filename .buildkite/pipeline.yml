@@ -48,8 +48,8 @@ steps:
   #             /app/hello_binary "$NAME"
 
   - label: "Run Hello Binary Directly"
-    command:
-      - 'NAME=$(buildkite-agent meta-data get NAME) && /app/hello_binary "$NAME"'
+    # command:
+    # - 'NAME=$(buildkite-agent meta-data get NAME) && /app/hello_binary "$NAME"'
     plugins:
       - docker-compose#v3.0.3:
           run: app
@@ -57,8 +57,8 @@ steps:
             - "sh"
             - "-c"
             - |
-              NAME=$(buildkite-agent meta-data get "NAME")
-              echo "Running hello_binary with "NAME"=$NAME"
+              NAME=$(buildkite-agent meta-data get NAME)
+              echo "Running hello_binary with NAME=$NAME"
               /app/hello_binary "$NAME"
           # command:
           #   - "sh"
