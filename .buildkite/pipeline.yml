@@ -34,7 +34,8 @@ steps:
       echo "Retrieving NAME from metadata..."
       buildkite-agent meta-data get NAME
 
-  - label: "Run Hello Binary in Container"
+
+    - label: "Run Hello Binary in Container"
       plugins:
         - docker-compose#v3.0.3:
             run: app
