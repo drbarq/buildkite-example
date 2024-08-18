@@ -4,8 +4,6 @@ steps:
       - docker#v5.11.0:
           image: "golang:1.18.0"
           workdir: "/app"
-          volumes:
-            - "./hello_dir:/app/hello_dir"
           command:
             [
               "sh",
