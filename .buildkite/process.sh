@@ -4,24 +4,23 @@ set -euo pipefail
 NAME=$(buildkite-agent meta-data get NAME)
 echo "Retrieved NAME from meta-data: $NAME"
 
-# Your original script logic
-until [ ${#NAME} -gt 0 ]
-do
-  echo "Script is checking for NAME"
-  NAME=$(buildkite-agent meta-data get NAME)
-  echo "Script run by $NAME"
-  buildkite-agent meta-data set "NAME" "$NAME"
-  NAME2=$(buildkite-agent meta-data get NAME)
-  echo "stored var $NAME2"
-  sleep 5
-done
+# Ensure NAME is not empty
+if [ -z "$NAME" ]; then
+  echo "Error: NAME is empty. Setting to DefaultName."
+  NAME="DefaultName"
+  buildkite-agent meta-data set NAME "$NAME"
+fi
 
 buildkite-agent pipeline upload << YAML
 steps:
   - label: "Retrieve NAME"
     command: |
       echo "Retrieving NAME from metadata..."
-      BUILDKITE_NAME=\$(buildkite-agent meta-data get NAME || echo "DefaultName")
+      BUILDKITE_NAME=\$(buildkite-agent meta-data get NAME)
+      if [ -z "\$BUILDKITE_NAME" ]; then
+        echo "Error: BUILDKITE_NAME is empty. Setting to DefaultName."
+        BUILDKITE_NAME="DefaultName"
+      fi
       buildkite-agent meta-data set BUILDKITE_NAME "\$BUILDKITE_NAME"
       echo "BUILDKITE_NAME is set to: \$BUILDKITE_NAME"
 
@@ -50,6 +49,4 @@ steps:
           - label: ":wave: Say hello again"
             value: "say_hello"
 
-  - label: ":robot_face: Process Input Again"
-    command: ".buildkite/process_again.sh"
-YAML
+  - label:
