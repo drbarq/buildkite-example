@@ -38,6 +38,9 @@ steps:
       - docker#v5.11.0:
           image: "golang:1.18.0"
           workdir: "/app"
+          mount-checkout: false
+          volumes:
+            - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
           command:
             [
               "sh",
