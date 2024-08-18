@@ -52,8 +52,7 @@ steps:
       - docker-compose#v3.0.3:
           run: app
           command:
-            - /app/hello_binary
-            - "${NAME}"
+            - /app/hello_binary "${NAME}"
           # command:
           #   - "sh"
           #   - "-c"
