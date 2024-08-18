@@ -7,7 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    command: sh -c './hello_binary "$1"'
+    entrypoint: ["sh", "-c"]
+    command: ["./hello_binary", "$1"]
     # command: ./hello_binary Buildkite
 
     # command: sh -c "./test.sh"

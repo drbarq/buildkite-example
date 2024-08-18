@@ -20,14 +20,14 @@ steps:
       - text: "Your name"
         key: "NAME"
 
-  # - label: "Run Script"
-  #   command: script.sh
-
   - label: "Run Script"
-    command: |
-      NAME=$(buildkite-agent meta-data get NAME)
-      echo "Running hello_binary with NAME=$NAME"
-      docker-compose run --rm app "$NAME"
+    command: script.sh
+
+  # - label: "Run Script"
+  #   command: |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     docker-compose run --rm app "$NAME"
 
   - label: "Debug Metadata"
     command: |
@@ -43,7 +43,7 @@ steps:
             - "-c"
             - |
               NAME=$(buildkite-agent meta-data get NAME)
-              echo "Running hello_binary with NAME=$NAME"
+              echo "Running hello_binary with name=$NAME"
               ./hello_binary "$NAME"
 
 # steps:
