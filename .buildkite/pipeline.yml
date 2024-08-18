@@ -13,20 +13,26 @@ steps:
 
   - label: "Debug NAME variable"
     command: |
+      echo "All meta-data keys:"
+      buildkite-agent meta-data keys
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
       echo "NAME from environment: $NAME"
 
-  - label: "print vars"
-    command: echo buildkite-agent meta-data keys
+  # - label: "print vars"
+  #   command: echo buildkite-agent meta-data keys
 
-  - label: "Store NAME"
-    command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
+  # - label: "Store NAME"
+  #   command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
 
-  - label: "Run Hello Binary with Name"
+  - label: "Run Hello Binary in Docker"
     command: |
-      NAME=$(buildkite-agent meta-data get "NAME")
-      echo "Running with NAME: $NAME"
-      docker-compose run --rm app ./hello_binary "$NAME"
+      NAME=$(buildkite-agent meta-data get NAME)
+      if [ -z "$NAME" ]; then
+        echo "ERROR: NAME is not set in meta-data"
+        exit 1
+      fi
+      echo "Running Docker with NAME: $NAME"
+      docker-compose run --rm app /bin/sh -c "echo 'Hello, $NAME!'"
   # - label: "Run Hello Binary with Name"
   #   command: |
   #     NAME=$(buildkite-agent meta-data get NAME)
