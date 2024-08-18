@@ -44,7 +44,7 @@ steps:
             - |
               NAME=$(buildkite-agent meta-data get NAME)
               echo "Running hello_binary with NAME=$NAME"
-              ./hello_binary Jeff
+              ./hello_binary "${NAME}"
 
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
