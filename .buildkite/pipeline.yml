@@ -54,13 +54,15 @@ steps:
           # command:
           #   # - /app/hello_binary
           #   - buildkite-agent meta-data get NAME
-        command:
-          - "sh"
-          - "-c"
-          - |
-            NAME=$(buildkite-agent meta-data get NAME)
-            echo "Retrieved NAME: $NAME"
-            ./hello_binary "$NAME"
+          command:
+            - "sh"
+            - "-c"
+            - |
+              NAME=$(buildkite-agent meta-data get NAME)
+              echo "Retrieved NAME: $NAME"
+              # ./hello_binary "$NAME"
+              "$NAME"
+
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
