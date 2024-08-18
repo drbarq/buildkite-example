@@ -1,15 +1,6 @@
 steps:
-  - command: buildkite-agent pipeline upload
-  - label: "Debug Step"
-    command:
-      - pwd
-      - ls -la
-      - env
-  - label: "Test Step"
-    command:
-      - bash
-      - -c
-      - "./test.sh"
+  - label: "Simple Echo"
+    command: echo "Hello, Buildkite!"
 # steps:
 #   - label: "Debug Step"
 #     command:
