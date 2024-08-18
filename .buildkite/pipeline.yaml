@@ -1,24 +1,27 @@
 steps:
-  - label: "Build Go Application"
-    plugins:
-      - docker#v3.7.0:
-          image: "golang:1.18.0"
-          workdir: "/app"
-          volumes:
-            - ".:/app"  
-          command: "go build -o hello ./hello" 
-    artifact_paths:
-      - "hello" 
+  - label: "Simple Test"
+    command: "echo 'Hello, Buildkite!'"
 
-  - block: "Enter your name"
+  # - label: "Build Go Application"
+  #   plugins:
+  #     - docker#v3.7.0:
+  #         image: "golang:1.18.0"
+  #         workdir: "/app"
+  #         volumes:
+  #           - ".:/app"
+  #         command: "go build -o hello ./hello"
+  #   artifact_paths:
+  #     - "hello"
 
-  - label: "Run Program"
-    plugins:
-      - docker#v3.7.0:
-          image: "alpine:latest"
-          workdir: "/app"
-          volumes:
-            - ".:/app"  
-          command: "./hello \"$(buildkite-agent meta-data get name)\""
-    artifact_paths:
-      - "hello"
+  # - block: "Enter your name"
+
+  # - label: "Run Program"
+  #   plugins:
+  #     - docker#v3.7.0:
+  #         image: "alpine:latest"
+  #         workdir: "/app"
+  #         volumes:
+  #           - ".:/app"
+  #         command: "./hello \"$(buildkite-agent meta-data get name)\""
+  #   artifact_paths:
+  #     - "hello"
