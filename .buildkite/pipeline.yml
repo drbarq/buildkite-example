@@ -6,12 +6,7 @@ steps:
           workdir: "/app"
           volumes:
             - ".:/app"
-          command:
-            [
-              "sh",
-              "-c",
-              "pwd && ls -R && [ -d hello ] && echo 'Content of go.mod:' && cat go.mod && echo 'Content of hello/hello.go:' && cat hello/hello.go",
-            ]
+          command: ["sh", "-c", "pwd && ls -R /app && ls -R /app/hello"]
 
   - label: "Build Go Application"
     plugins:

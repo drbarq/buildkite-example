@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o hello hello.go
+# Navigate to the hello directory and build the Go application
+RUN cd hello && go build -o hello hello.go
+
+# Move the compiled binary to the /app directory
+RUN mv hello /app/
 
 CMD ["./hello"]
