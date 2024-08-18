@@ -7,8 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    environment:
-      - NAME
     # entrypoint: ["./hello_binary"]
     # command: ["${NAME}"]
     # command: ./hello_binary ${NAME}

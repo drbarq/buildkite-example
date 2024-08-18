@@ -40,7 +40,7 @@ COPY . .
 RUN cd /app/hello_dir && go build -o /app/hello_binary hello.go
 
 # Use ENTRYPOINT to ensure arguments are passed to the binary
-# ENTRYPOINT ["./hello_binary"]
+ENTRYPOINT ["./hello_binary"]
 
 # FROM golang:1.18.0
 
