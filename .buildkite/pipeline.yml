@@ -34,25 +34,13 @@ steps:
       echo "Retrieving NAME from metadata..."
       buildkite-agent meta-data get NAME
 
-  # - label: "Run Hello Binary Inside Docker Container"
-  #   plugins:
-  #     - docker-compose#v3.0.3:
-  #         run: app
-  #         command:
-  #           - "sh"
-  #           - "-c"
-  #           - |
-  #             NAME=$(buildkite-agent meta-data get NAME)
-  #             echo "Retrieved NAME: $NAME"
-  #             echo "Running hello_binary with NAME=$NAME"
-  #             /app/hello_binary "$NAME"
-
   - label: "Run Hello Binary in Container"
       plugins:
         - docker-compose#v3.0.3:
             run: app
             command: ["/bin/sh", "-c", "./hello_binary \"$(buildkite-agent meta-data get NAME)\""]
 
+  
   # - label: "Run Hello Binary Directly"
   #   # command:
   #   # - 'NAME=$(buildkite-agent meta-data get NAME) && /app/hello_binary "$NAME"'
