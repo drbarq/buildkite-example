@@ -10,6 +10,9 @@ steps:
     artifact_paths:
       - "hello_binary"
 
+  - block: "Pause before entering name"
+    prompt: "Please enter your name in the following input step."
+
   - input: "Enter your name"
     fields:
       - text: "Your name"
