@@ -23,11 +23,11 @@ steps:
   - label: "Run Script"
     command: script.sh
 
-  - label: "Debug: Check Metadata"
-    command: |
-      echo "Attempting to retrieve name from metadata..."
-      NAME=$(buildkite-agent meta-data get NAME)
-      echo "Retrieved name: $NAME"
+  # - label: "Debug: Check Metadata"
+  #   command: |
+  #     echo "Attempting to retrieve name from metadata..."
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Retrieved name: $NAME"
 
   # - label: "Set Name Environment Variable"
   #   command: |
