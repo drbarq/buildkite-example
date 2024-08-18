@@ -33,14 +33,11 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
-steps:
   - name: "Docker Test %n"
     command: test.sh
     plugins:
       - docker-compose#v3.0.3:
           run: app
-
-
 
   - label: "Build Go Application"
     plugins:
