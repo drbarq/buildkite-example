@@ -6,7 +6,7 @@ steps:
           workdir: "/app"
           volumes:
             - ".:/app"
-          command: ["go", "build", "-o", "hello", "./hello.go"]
+          command: ["sh", "-c", "cd /app && go build -o hello ./hello/hello.go"]
     artifact_paths:
       - hello
 
