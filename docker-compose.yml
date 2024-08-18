@@ -7,7 +7,10 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    command: ./hello_binary Buildkite
+    environment:
+      - NAME=${NAME}
+    command: sh -c './hello_binary "$NAME"'
+    # command: ./hello_binary Buildkite
 
     # command: sh -c "./test.sh"
 # version: "3.8"

@@ -29,14 +29,11 @@ steps:
   #     NAME=$(buildkite-agent meta-data get NAME)
   #     echo "Retrieved name: $NAME"
 
-  # - label: "Set Name Environment Variable"
-  #   command: |
-  #     name=$(buildkite-agent meta-data get "name")
-  #     if [ -z "$name" ]; then
-  #       echo "Error: No name provided"
-  #       exit 1
-  #     fi
-  #     echo "Name set to: $name"
+  - label: "Debug Metadata"
+    command: |
+      echo "Retrieving NAME from metadata..."
+      buildkite-agent meta-data get NAME
+
 
   - label: "Run Hello Binary Inside Docker Container"
     plugins:
@@ -47,6 +44,7 @@ steps:
             - "-c"
             - |
               NAME=$(buildkite-agent meta-data get NAME)
+              echo "Running hello_binary with NAME=$NAME"
               ./hello_binary "$NAME"
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
