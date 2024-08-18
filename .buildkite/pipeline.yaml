@@ -1,0 +1,28 @@
+steps:
+  - label: "Build"
+    plugins:
+      - docker#v3.7.0:
+          image: "golang:1.18.0"
+          workdir: "/app"
+          environment:
+            - CGO_ENABLED=0
+            - GOOS=linux
+            - GOARCH=amd64
+          volumes:
+            - ".:/app"
+          command: "go build -o hello"
+    artifact_paths:
+      - "hello"
+
+  - block: "Enter your name"
+
+  - label: "Run Program"
+    command: './hello "$(buildkite-agent meta-data get name)"'
+    plugins:
+      - docker#v3.7.0:
+          image: "alpine:latest"
+          workdir: "/app"
+          volumes:
+            - "buildkite:/app"
+    artifact_paths:
+      - "hello"
