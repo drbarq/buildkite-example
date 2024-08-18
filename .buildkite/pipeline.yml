@@ -33,20 +33,12 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
-  - label: "Debug Directory Structure"
+steps:
+  - label: "Build and Run with Docker Compose"
     plugins:
-      - docker#v5.11.0:
-          image: "golang:1.18.0"
-          workdir: "/app"
-          mount-checkout: false
-          volumes:
-            - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
-          command:
-            [
-              "sh",
-              "-c",
-              "ls -R /app && cat /app/hello_dir/hello.go && cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go && ../hello_binary 'Buildkite'",
-            ]
+      - docker-compose#v3.7.0:
+          run: app
+
 
   - label: "Build Go Application"
     plugins:
