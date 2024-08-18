@@ -12,15 +12,9 @@ steps:
 
   - wait
 
-  # - block: "Enter your name"
-  #   prompt: "Please enter your name:"
-  #   key: "username"
-
-  # Block the pipeline and wait for a manual unblock
   - block: "Pause before entering name"
     prompt: "Are you ready to enter your name?"
 
-  # Input step to capture the user's name
   - input: "Enter your name"
     fields:
       - text: "Your name"
@@ -30,13 +24,49 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          command: ["./hello_binary", "$(buildkite-agent meta-data get name)"]
+          command:
+            - "sh"
+            - "-c"
+            - './hello_binary "$(buildkite-agent meta-data get name)"'
+# steps:
+#   - label: "Verify Buildkite Directory Structure"
+#     command:
+#       - "ls -R"
 
-  # - label: "Run Hello Binary Inside Docker Container"
-  #   plugins:
-  #     - docker-compose#v3.0.3:
-  #         run: app
-  #         command: ["./hello_binary"]
+#   - label: "Build Go Application"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           build: app
+#     artifact_paths:
+#       - "hello_binary"
+
+#   - wait
+
+#   # - block: "Enter your name"
+#   #   prompt: "Please enter your name:"
+#   #   key: "username"
+
+#   # Block the pipeline and wait for a manual unblock
+#   - block: "Pause before entering name"
+#     prompt: "Are you ready to enter your name?"
+
+#   # Input step to capture the user's name
+#   - input: "Enter your name"
+#     fields:
+#       - text: "Your name"
+#         key: "name"
+
+#   - label: "Run Hello Binary Inside Docker Container"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           run: app
+#           command: ["./hello_binary", "$(buildkite-agent meta-data get name)"]
+
+# - label: "Run Hello Binary Inside Docker Container"
+#   plugins:
+#     - docker-compose#v3.0.3:
+#         run: app
+#         command: ["./hello_binary"]
 # steps:
 #   - label: "Build Go Application"
 #     plugins:
