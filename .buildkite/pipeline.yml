@@ -1,58 +1,18 @@
 steps:
-  - block: "Pause before entering name"
-    prompt: "Please enter your name in the following input step."
+  - label: ":magic_wand: Let's Begin"
+    key: "begin"
+    command: ".buildkite/setup.sh"
 
-  - input: "Enter your name"
+  - block: ":thinking_face: What now?"
+    prompt: "Choose the next action"
     fields:
-      - text: "Your name"
-        key: "NAME"
-        required: true
+      - select: "Action"
+        key: "action"
+        options:
+          - label: ":input_numbers: Enter your name"
+            value: "enter_name"
+          - label: ":wave: Say hello"
+            value: "say_hello"
 
-  - label: "Run Script"
-    command: script.sh
-
-  - label: "Debug NAME variable"
-    command: |
-      echo "All meta-data keys:"
-      buildkite-agent meta-data keys
-      echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
-      echo "NAME from environment: $NAME"
-
-  # - label: "print vars"
-  #   command: echo buildkite-agent meta-data keys
-
-  # - label: "Store NAME"
-  #   command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
-  - label: "Run Hello Binary in Docker"
-    command: |
-      NAME=$(buildkite-agent meta-data get NAME)
-      if [ -z "$NAME" ]; then
-        echo "ERROR: NAME is not set in meta-data"
-        exit 1
-      fi
-      echo "Running Docker with NAME: $NAME"
-      docker-compose run --rm app ./hello_binary "$NAME"
-  # - label: "Run Hello Binary with Name"
-  #   command: |
-  #     NAME=$(buildkite-agent meta-data get NAME)
-  #     echo "Running with NAME: $NAME"
-  #     docker-compose run --rm app ./hello_binary "$NAME"
-
-  # - label: "Run Hello Binary with Name"
-  #   plugins:
-  #     - docker-compose#v3.0.3:
-  #         run: app
-  #         command: ["sh", "-c", "NAME=\"$(buildkite-agent meta-data get NAME)\" && ./hello_binary \"$NAME\""]
-
-  # - label: "Run Hello Binary with Name"
-  #   command: |
-  #     NAME=$(buildkite-agent meta-data get NAME)
-  #     echo "Running with NAME: $NAME"
-  #     docker-compose run --rm app ./hello_binary "$NAME"
-  # - label: "Run Hello Binary with Name"
-  #   plugins:
-  #     - docker-compose#v3.0.3:
-  #         run: app
-  #         command: ["./hello_binary", "$$NAME"]
-  #   env:
-  #     NAME: ${NAME:-$(buildkite-agent meta-data get NAME)}
+  - label: ":robot_face: Process Input"
+    command: ".buildkite/process.sh"
