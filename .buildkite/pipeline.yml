@@ -19,6 +19,8 @@ steps:
     fields:
       - text: "Your name"
         key: "name"
+  - label: "Run Script"
+    command: script.sh
 
   - label: "Debug: Check Metadata"
     command: |
