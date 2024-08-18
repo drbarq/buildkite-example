@@ -55,8 +55,8 @@ steps:
             - "sh"
             - "-c"
             - |
-              NAME=$(buildkite-agent meta-data get NAME)
-              echo "Running hello_binary with NAME=$NAME"
+              NAME=$(buildkite-agent meta-data get "NAME")
+              echo "Running hello_binary with "NAME"=$NAME"
               /app/hello_binary "$NAME"
           # command:
           #   - "sh"
