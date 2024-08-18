@@ -2,6 +2,7 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
+
   - label: "Build Go Application"
     plugins:
       - docker-compose#v3.0.3:
