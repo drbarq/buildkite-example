@@ -11,6 +11,8 @@ steps:
   - label: "Run Script"
     command: script.sh
 
+  - wait: ~
+
   - label: "Debug NAME variable"
     command: |
       echo "All meta-data keys:"
