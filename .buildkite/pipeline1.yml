@@ -1,0 +1,169 @@
+steps:
+  - label: "Verify Buildkite Directory Structure"
+    command:
+      - "ls -R"
+
+  - label: "Build Go Application"
+    plugins:
+      - docker-compose#v3.0.3:
+          build: app
+    artifact_paths:
+      - "hello_binary"
+
+  - wait
+
+  - block: "Pause before entering name"
+    prompt: "Please enter your name in the following input step."
+
+  - input: "Enter your name"
+    fields:
+      - text: "Your name"
+        key: "NAME"
+
+  - label: "Run Script"
+    command: script.sh
+
+  - label: "Debug Metadata"
+    command: |
+      echo "Retrieving NAME from metadata..."
+      buildkite-agent meta-data get NAME
+
+  - label: ":docker: Build"
+    plugins:
+      - docker-compose#v5.3.0:
+          build: app
+
+  - wait
+
+  - label: "Run Hello Binary with Name"
+    plugins:
+      - docker-compose#v3.0.3:
+          run: app
+          propagate-environment: true
+          environment:
+            - NAME
+          command:
+            - NAME
+          # command:
+          #   - /bin/sh
+          #   - -c
+          #   - 'echo "NAME" | xargs ./hello_binary'
+  # - label: "Run Hello Binary Directly"
+  #   plugins:
+  #     - docker-compose#v3.0.3:
+  #         run: app
+  #         propagate-environment: true
+  #         command:
+  #           - /app/hello_binary johnny
+
+  # - label: "Run Hello Binary with Name"
+  #   plugins:
+  #     - docker-compose#v3.0.3:
+  #         run: app
+  #         propagate-environment: true
+  #         command:
+  #           - /bin/sh
+  #           - -c
+  #           - '/app/hello_binary "$(buildkite-agent meta-data get NAME)"'
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     echo $(buildkite-agent meta-data get NAME)
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     /app/hello_binary "$NAME"
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     /app/hello_binary "$NAME"
+  # # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     /app/hello_binary "$NAME"
+  # command:
+  #   - /app/hello_binary
+  #   - Joe
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Retrieved NAME: $NAME"
+  #     /app/hello_binary "$NAME"
+  # command:
+  #   - /app/hello_binary
+  #   - buildkite-agent meta-data get NAME
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Retrieved NAME: $NAME"
+  #     # ./hello_binary "$NAME"
+  #     "$NAME"
+# steps:
+#   - label: "Verify Buildkite Directory Structure"
+#     command:
+#       - "ls -R"
+
+#   - label: "Build Go Application"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           build: app
+#     artifact_paths:
+#       - "hello_binary"
+
+#   - wait
+
+#   # - block: "Enter your name"
+#   #   prompt: "Please enter your name:"
+#   #   key: "username"
+
+#   # Block the pipeline and wait for a manual unblock
+#   - block: "Pause before entering name"
+#     prompt: "Are you ready to enter your name?"
+
+#   # Input step to capture the user's name
+#   - input: "Enter your name"
+#     fields:
+#       - text: "Your name"
+#         key: "name"
+
+#   - label: "Run Hello Binary Inside Docker Container"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           run: app
+#           command: ["./hello_binary", "$(buildkite-agent meta-data get name)"]
+
+# - label: "Run Hello Binary Inside Docker Container"
+#   plugins:
+#     - docker-compose#v3.0.3:
+#         run: app
+#         command: ["./hello_binary"]
+# steps:
+#   - label: "Build Go Application"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           build: app
+#     artifact_paths:
+#       - "hello_binary"
+
+#   - wait
+
+#   - block: "Enter your name"
+#     prompt: "Please enter your name:"
+#     key: "username"
+
+#   - label: "Run Hello Binary Inside Docker Container"
+#     plugins:
+#       - docker-compose#v3.0.3:
+#           run: app
+#           command:
+#             ["./hello_binary", "$(buildkite-agent meta-data get username)"]
