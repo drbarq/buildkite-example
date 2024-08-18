@@ -23,7 +23,6 @@ steps:
 
   # - label: "Store NAME"
   #   command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
-
   - label: "Run Hello Binary in Docker"
     command: |
       NAME=$(buildkite-agent meta-data get NAME)
@@ -32,7 +31,7 @@ steps:
         exit 1
       fi
       echo "Running Docker with NAME: $NAME"
-      docker-compose run --rm -e NAME="$NAME" app ./hello_binary
+      docker-compose run --rm app ./hello_binary "$NAME"
   # - label: "Run Hello Binary with Name"
   #   command: |
   #     NAME=$(buildkite-agent meta-data get NAME)
