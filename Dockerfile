@@ -2,12 +2,10 @@ FROM golang:1.18.0
 
 WORKDIR /app
 
-# Explicitly copy the hello directory
-COPY hello/ /app/hello_dir/
-
-# Copy other files (like go.mod)
+# Copy all the files into the container
 COPY . .
 
-RUN cd hello_dir && go build -o hello hello.go
+# Move into the hello_dir directory and build the Go binary
+RUN cd hello_dir && go build -o ../hello_binary hello.go
 
-CMD ["./hello"]
+CMD ["./hello_binary"]
