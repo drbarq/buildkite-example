@@ -19,20 +19,42 @@ steps:
       buildkite-agent meta-data keys
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
 
+  - label: ":docker: Build"
+    plugins:
+      - docker-compose#v5.3.0:
+          build: app
+
+  - wait
+
+  - label: "Run Hello Binary with Name"
+    plugins:
+      - docker-compose#v5.3.0:
+          run: app
+          command: ["./hello_binary", "$$NAME"]
+          propagate-environment: true
+
+  # - label: "Run Hello Binary Directly"
+  #   plugins:
+  #     - docker-compose#v3.0.3:
+  #         run: app
+  #         propagate-environment: true
+  #         command:
+  #           - /app/hello_binary johnny
+
   # - label: "print vars"
   #   command: echo buildkite-agent meta-data keys
 
   # - label: "Store NAME"
   #   command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
-  - label: "Run Hello Binary in Docker"
-    command: |
-      NAME=$(buildkite-agent meta-data get NAME)
-      if [ -z "$NAME" ]; then
-        echo "ERROR: NAME is not set in meta-data"
-        exit 1
-      fi
-      echo "Running Docker with NAME: $NAME"
-      docker-compose run --rm app ./hello_binary "$NAME"
+  # - label: "Run Hello Binary in Docker"
+  #   command: |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     if [ -z "$NAME" ]; then
+  #       echo "ERROR: NAME is not set in meta-data"
+  #       exit 1
+  #     fi
+  #     echo "Running Docker with NAME: $NAME"
+  #     docker-compose run --rm app ./hello_binary "$NAME"
 
   # - block: "Trigger another build?"
   #   prompt: "Do you want to trigger another build with the same name?"
