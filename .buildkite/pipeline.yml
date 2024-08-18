@@ -57,7 +57,8 @@ steps:
           # env:
           #   - NAME=$(buildkite-agent meta-data get NAME)
           command:
-            - echo $(buildkite-agent meta-data get NAME)
+            # - echo $(buildkite-agent meta-data get NAME)
+            - /app/hello_binary johnny
           # command:
           #   - "sh"
           #   - "-c"
