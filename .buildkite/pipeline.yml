@@ -24,7 +24,7 @@ steps:
             [
               "sh",
               "-c",
-              "[ -d hello ] && cd hello && go build -o hello_binary hello.go && mv hello_binary .. && cd .. && ./hello_binary Buildkite || echo 'Directory hello not found'",
+              "cd hello && go mod tidy && go build -o hello_binary hello.go && mv hello_binary .. && cd .. && ./hello_binary Buildkite || echo 'Directory hello not found'",
             ]
     artifact_paths:
       - hello_binary
