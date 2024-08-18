@@ -6,10 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/app
     working_dir: /app
-    command: sh -c "./test.sh"
+    command: ./hello_binary Buildkite
+
+    # command: sh -c "./test.sh"
 # version: "3.8"
 
 # services:
