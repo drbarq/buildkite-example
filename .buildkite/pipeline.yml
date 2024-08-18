@@ -17,12 +17,11 @@ steps:
       echo "NAME from environment: $NAME"
 
   - label: "Run Hello Binary with Name"
-    plugins:
-      - docker-compose#v3.0.3:
-          run: app
-          command: ["./hello_binary", "$$NAME"]
-    env:
-      NAME: $(buildkite-agent meta-data get NAME)
+    command: |
+      NAME=$(buildkite-agent meta-data get NAME)
+      echo "Running with NAME: $NAME"
+      docker-compose run --rm app ./hello_binary "$NAME"
+
   # - label: "Run Hello Binary with Name"
   #   command: |
   #     NAME=$(buildkite-agent meta-data get NAME)
