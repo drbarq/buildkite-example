@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN cd hello && go build -o hello hello.go && mv hello ../
+RUN go build -o hello hello.go
 
 CMD ["./hello"]
