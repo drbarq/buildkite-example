@@ -16,6 +16,11 @@ steps:
   #   prompt: "Please enter your name:"
   #   key: "username"
 
+  # Block the pipeline and wait for a manual unblock
+  - block: "Pause before entering name"
+    prompt: "Are you ready to enter your name?"
+
+  # Input step to capture the user's name
   - input: "Enter your name"
     fields:
       - text: "Your name"
