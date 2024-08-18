@@ -51,18 +51,17 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          # command:
-          #   # - /app/hello_binary
-          #   - buildkite-agent meta-data get NAME
           command:
-            - "sh"
-            - "-c"
-            - |
-              NAME=$(buildkite-agent meta-data get NAME)
-              echo "Retrieved NAME: $NAME"
-              # ./hello_binary "$NAME"
-              "$NAME"
-
+            - /app/hello_binary
+          #   - buildkite-agent meta-data get NAME
+          # command:
+          #   - "sh"
+          #   - "-c"
+          #   - |
+          #     NAME=$(buildkite-agent meta-data get NAME)
+          #     echo "Retrieved NAME: $NAME"
+          #     # ./hello_binary "$NAME"
+          #     "$NAME"
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
