@@ -1,4 +1,4 @@
-version: "3.8"
+# version: "3.8"
 
 services:
   app:
@@ -7,8 +7,11 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    entrypoint: ["sh", "-c"]
-    command: ["./hello_binary", "$1"]
+    entrypoint: ["/app/hello_binary"]
+    # command: ["${NAME}"]
+    # command: ./hello_binary ${NAME}
+    # entrypoint: ["sh", "-c"]
+    # command: ["./hello_binary", "$1"]
     # command: ./hello_binary Buildkite
 
     # command: sh -c "./test.sh"
