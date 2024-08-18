@@ -1,10 +1,4 @@
 steps:
-  - label: "Simple Echo"
-    command: echo "Hello, Buildkite!"
-
-  - label: "Run test script"
-    command: ./test.sh
-
   - label: "Build Go Application"
     plugins:
       - docker#v3.7.0:
@@ -12,20 +6,24 @@ steps:
           workdir: "/app"
           volumes:
             - ".:/app"
-          command: "go build -o hello ./hello"
+          command:
+            - go
+            - build
+            - -o
+            - hello
+            - ./hello.go
     artifact_paths:
       - "hello"
 
   - block: "Enter your name"
     prompt: "What's your name?"
+    fields:
+      - text: "name"
+        key: "user-name"
+        hint: "Enter your name"
 
   - label: "Run Program"
-    plugins:
-      - docker#v3.7.0:
-          image: "alpine:latest"
-          workdir: "/app"
-          volumes:
-            - ".:/app"
-          command: './hello "$(buildkite-agent meta-data get name)"'
-    artifact_paths:
-      - "hello"
+    commands:
+      - buildkite-agent artifact download hello .
+      - chmod +x ./hello
+      - ./hello "$(buildkite-agent meta-data get user-name)"
