@@ -53,7 +53,7 @@ steps:
           run: app
           command:
             # - /app/hello_binary
-            - "${NAME}"
+            - NAME=$(buildkite-agent meta-data get NAME)
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
