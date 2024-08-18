@@ -1,29 +1,45 @@
 steps:
   - label: "Build Go Application"
     plugins:
-      - docker#v3.7.0:
+      - docker#v5.11.0:
           image: "golang:1.18.0"
           workdir: "/app"
           volumes:
             - ".:/app"
-          command:
-            - go
-            - build
-            - -o
-            - hello
-            - ./hello.go
+          command: ["go", "build", "-o", "hello", "./hello.go"]
     artifact_paths:
-      - "hello"
+      - hello
 
-  - block: "Enter your name"
-    prompt: "What's your name?"
-    fields:
-      - text: "name"
-        key: "user-name"
-        hint: "Enter your name"
+  - wait
 
-  - label: "Run Program"
-    commands:
-      - buildkite-agent artifact download hello .
-      - chmod +x ./hello
-      - ./hello "$(buildkite-agent meta-data get user-name)"
+  - label: "Run Hello Program"
+    command: "./hello"
+# steps:
+#   - label: "Build Go Application"
+#     plugins:
+#       - docker#v3.7.0:
+#           image: "golang:1.18.0"
+#           workdir: "/app"
+#           volumes:
+#             - ".:/app"
+#           command:
+#             - go
+#             - build
+#             - -o
+#             - hello
+#             - ./hello.go
+#     artifact_paths:
+#       - "hello"
+
+#   - block: "Enter your name"
+#     prompt: "What's your name?"
+#     fields:
+#       - text: "name"
+#         key: "user-name"
+#         hint: "Enter your name"
+
+#   - label: "Run Program"
+#     commands:
+#       - buildkite-agent artifact download hello .
+#       - chmod +x ./hello
+#       - ./hello "$(buildkite-agent meta-data get user-name)"
