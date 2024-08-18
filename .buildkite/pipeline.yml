@@ -6,33 +6,4 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          command: ["./hello_binary", "Buildkite"]
-
-          # sdf
-  # - command: |
-  #     echo "Contents of /. directory:"
-  #     ls -R /.
-  #     echo "Running test.sh"
-  #     /app/test.sh
-  #   plugins:
-  #     - docker-compose#v5.3.0:
-  #         run: app
-
-  # - label: "Run Application with Docker Compose"
-  #   plugins:
-  #     - docker-compose#v3.0.3:
-  #         run: app
-  #         command: >
-  #           sh -c "
-  #           ls -R /app &&
-  #           cat /app/hello_dir/hello.go &&
-  #           cd /app/hello_dir &&
-  #           GO111MODULE=off go build -o ../hello_binary hello.go &&
-  #           ../hello_binary 'Buildkite'"
-  #   artifact_paths:
-  #     - hello_binary
-
-  # - wait
-
-  # - label: "Run Hello Program"
-  #   command: "./hello_binary Buildkite"
+          command: ["./hello_binary"]
