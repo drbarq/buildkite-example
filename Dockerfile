@@ -2,10 +2,8 @@ FROM golang:1.18.0
 
 WORKDIR /app
 
-# Copy everything into /app in the container
-COPY . .
+# Copy the hello.go file directly
+COPY hello_dir/hello.go /app/hello_dir/
 
-# Build the Go application
-RUN cd hello_dir && go build -o ../hello_binary hello.go
-
-CMD ["./hello_binary"]
+# Simple command to check if hello.go is present
+CMD ["ls", "-R", "/app"]
