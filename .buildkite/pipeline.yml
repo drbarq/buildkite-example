@@ -1,16 +1,16 @@
-steps:
-  - label: "Verify Buildkite Directory Structure"
-    command:
-      - "ls -R"
-  - label: "Interactive Debugging"
-    plugins:
-      - docker#v5.11.0:
-          image: "golang:1.18.0"
-          workdir: "/app"
-          mount-checkout: false
-          volumes:
-            - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
-          command: ["/bin/sh"]
+# steps:
+#   - label: "Verify Buildkite Directory Structure"
+#     command:
+#       - "ls -R"
+#   - label: "Interactive Debugging"
+#     plugins:
+#       - docker#v5.11.0:
+#           image: "golang:1.18.0"
+#           workdir: "/app"
+#           mount-checkout: false
+#           volumes:
+#             - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
+#           command: ["/bin/sh"]
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
@@ -29,40 +29,40 @@ steps:
 #               "-c",
 #               "echo 'Contents of /app:' && ls -R /app && echo 'Contents of /app/hello_dir:' && ls -R /app/hello_dir && echo 'hello.go file content:' && cat /app/hello_dir/hello.go",
 #             ]
-# steps:
-#   - label: "Verify Buildkite Directory Structure"
-#     command:
-#       - "ls -R"
-#   - label: "Debug Directory Structure"
-#     plugins:
-#       - docker#v5.11.0:
-#           image: "golang:1.18.0"
-#           workdir: "/app"
-#           command:
-#             [
-#               "sh",
-#               "-c",
-#               "echo 'Contents of /app:' && ls -R /app && echo 'Contents of /app/hello_dir:' && ls -R /app/hello_dir && echo 'hello.go file content:' && cat /app/hello_dir/hello.go",
-#             ]
+steps:
+  - label: "Verify Buildkite Directory Structure"
+    command:
+      - "ls -R"
+  - label: "Debug Directory Structure"
+    plugins:
+      - docker#v5.11.0:
+          image: "golang:1.18.0"
+          workdir: "/app"
+          command:
+            [
+              "sh",
+              "-c",
+              "echo 'Contents of /app:' && ls -R /app && echo 'Contents of /app/hello_dir:' && ls -R /app/hello_dir && echo 'hello.go file content:' && cat /app/hello_dir/hello.go",
+            ]
 
-#   - label: "Build Go Application"
-#     plugins:
-#       - docker#v5.11.0:
-#           image: "golang:1.18.0"
-#           workdir: "/app"
-#           command:
-#             [
-#               "sh",
-#               "-c",
-#               "cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go",
-#             ]
-#     artifact_paths:
-#       - hello_binary
+  - label: "Build Go Application"
+    plugins:
+      - docker#v5.11.0:
+          image: "golang:1.18.0"
+          workdir: "/app"
+          command:
+            [
+              "sh",
+              "-c",
+              "cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go",
+            ]
+    artifact_paths:
+      - hello_binary
 
-#   - wait
+  - wait
 
-#   - label: "Run Hello Program"
-#     command: "./hello_binary Buildkite"
+  - label: "Run Hello Program"
+    command: "./hello_binary Buildkite"
 # steps:
 #   - label: "Debug Directory Structure"
 #     plugins:
