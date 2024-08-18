@@ -5,8 +5,6 @@ steps:
           image: "golang:1.18.0"
           workdir: "/app"
           mount-checkout: false
-          propagate-environment: true
-          debug: true
           volumes:
             - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
           command:
