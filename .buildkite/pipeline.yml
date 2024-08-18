@@ -23,36 +23,25 @@ steps:
   - label: "Run Script"
     command: script.sh
 
-  # - label: "Debug Metadata"
-  #   command: |
-  #     echo "Retrieving NAME from metadata..."
-  #     buildkite-agent meta-data get NAME
-
   - label: "Debug Metadata"
-      command: |
-        echo "Retrieving NAME from metadata..."
-        NAME=$(buildkite-agent meta-data get NAME)
-        echo "NAME is: $NAME"
-        buildkite-agent meta-data set CONTAINER_NAME "$NAME"
+    command: |
+      echo "Retrieving NAME from metadata..."
+      buildkite-agent meta-data get NAME
 
   - label: "Run Hello Binary in Container"
       plugins:
         - docker-compose#v3.0.3:
             run: app
-            command: ["./hello_binary", "$$CONTAINER_NAME"]
+            command: ["./hello_binary", "$$NAME"]
       env:
-        CONTAINER_NAME: ${CONTAINER_NAME:-$(buildkite-agent meta-data get CONTAINER_NAME)}
+        NAME: ${NAME:-$(buildkite-agent meta-data get NAME)}
+
   # - label: "Run Hello Binary Directly"
-  #   # command:
-  #   # - 'NAME=$(buildkite-agent meta-data get NAME) && /app/hello_binary "$NAME"'
   #   plugins:
   #     - docker-compose#v3.0.3:
   #         run: app
   #         propagate-environment: true
-  #         # env:
-  #         #   - NAME=$(buildkite-agent meta-data get NAME)
   #         command:
-  #           # - echo $(buildkite-agent meta-data get NAME)
   #           - /app/hello_binary johnny
   # command:
   #   - "sh"
