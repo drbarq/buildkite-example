@@ -12,6 +12,7 @@ steps:
   #         command: "go build -o hello ./hello"
   #   artifact_paths:
   #     - "hello"
+  # hello
 
   # - block: "Enter your name"
 
