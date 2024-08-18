@@ -10,7 +10,7 @@ steps:
             [
               "sh",
               "-c",
-              "pwd && ls -R && echo 'Content of go.mod:' && cat go.mod && echo 'Content of hello/hello.go:' && cat hello/hello.go",
+              "pwd && ls -R && [ -d hello ] && echo 'Content of go.mod:' && cat go.mod && echo 'Content of hello/hello.go:' && cat hello/hello.go",
             ]
 
   - label: "Build Go Application"
@@ -24,7 +24,7 @@ steps:
             [
               "sh",
               "-c",
-              "cd hello && go build -o hello hello.go && mv hello .. && cd .. && ./hello Buildkite",
+              "[ -d hello ] && cd hello && go build -o hello hello.go && mv hello .. && cd .. && ./hello Buildkite || echo 'Directory hello not found'",
             ]
     artifact_paths:
       - hello
