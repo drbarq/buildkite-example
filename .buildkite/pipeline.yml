@@ -1,4 +1,9 @@
 steps:
+  - label: "Debug Step"
+    command:
+      - pwd
+      - ls -la
+      - env
   - label: "Test Step"
     command:
       - bash
