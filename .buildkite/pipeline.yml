@@ -4,8 +4,8 @@ steps:
       - docker#v5.11.0:
           image: "golang:1.18.0"
           workdir: "/app"
-        volumes:
-          - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
+          volumes:
+            - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-3:/app"
           command: ["sh", "-c", "pwd && ls -R /app && ls -R /app/hello"]
 
   - label: "Build Go Application"
