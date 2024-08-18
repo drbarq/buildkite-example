@@ -2,10 +2,12 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
- - label: "Build Application with Docker Compose"
+
+  - label: "Build Application with Docker Compose"
     plugins:
       - docker-compose#v3.0.3:
           build: app
+
   - label: "Run Application with Docker Compose"
     plugins:
       - docker-compose#v3.0.3:
