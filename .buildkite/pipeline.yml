@@ -32,24 +32,24 @@ steps:
       echo "Running Docker with NAME: $NAME"
       docker-compose run --rm app ./hello_binary "$NAME"
 
-  - block: "Trigger another build?"
-    prompt: "Do you want to trigger another build with the same name?"
-    fields:
-      - select: "Trigger build"
-        key: "TRIGGER_BUILD"
-        options:
-          - label: "Yes"
-            value: "yes"
-          - label: "No"
-            value: "no"
+  # - block: "Trigger another build?"
+  #   prompt: "Do you want to trigger another build with the same name?"
+  #   fields:
+  #     - select: "Trigger build"
+  #       key: "TRIGGER_BUILD"
+  #       options:
+  #         - label: "Yes"
+  #           value: "yes"
+  #         - label: "No"
+  #           value: "no"
 
-  - label: "Trigger new build"
-    trigger: "app-test-3"
-    build:
-      message: "Triggered build with NAME: ${NAME}"
-      env:
-        NAME: ${NAME}
-    if: build.env.TRIGGER_BUILD == "yes"
+  # - label: "Trigger new build"
+  #   trigger: "app-test-3"
+  #   build:
+  #     message: "Triggered build with NAME: ${NAME}"
+  #     env:
+  #       NAME: ${NAME}
+  #   if: build.env.TRIGGER_BUILD == "yes"
   # - label: "Run Hello Binary with Name"
   #   command: |
   #     NAME=$(buildkite-agent meta-data get NAME)
