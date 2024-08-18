@@ -1,6 +1,6 @@
 steps:
   - label: "Test Step"
-    command: "echo 'Hello, Buildkite!'"
+    command: "echo 'Hello!!! Buildkite!'"
 # steps:
 #   - label: "Simple Command"
 #     command: "echo 'Hello, Buildkite!'"
