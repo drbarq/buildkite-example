@@ -40,10 +40,14 @@ steps:
   #     chmod +x /usr/local/bin/docker-compose
   #     docker-compose --version
 
-  - label: "Build and Test Application"
+ - label: "Build Application with Docker Compose"
     plugins:
       - docker-compose#v3.0.3:
           build: app
+
+  - label: "Run Application with Docker Compose"
+    plugins:
+      - docker-compose#v3.0.3:
           run: app
           command: >
             sh -c "
