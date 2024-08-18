@@ -47,61 +47,69 @@ steps:
   #             echo "Running hello_binary with NAME=$NAME"
   #             /app/hello_binary "$NAME"
 
-  - label: "Run Hello Binary Directly"
-    # command:
-    # - 'NAME=$(buildkite-agent meta-data get NAME) && /app/hello_binary "$NAME"'
+  - label: "Run Hello Binary in Container"
+    env:
+      NAME: ${NAME:-$(buildkite-agent meta-data get NAME)}
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          propagate-environment: true
-          # env:
-          #   - NAME=$(buildkite-agent meta-data get NAME)
-          command:
-            # - echo $(buildkite-agent meta-data get NAME)
-            - /app/hello_binary johnny
-          # command:
-          #   - "sh"
-          #   - "-c"
-          #   - |
-          #     echo $(buildkite-agent meta-data get NAME)
-          #     NAME=$(buildkite-agent meta-data get NAME)
-          #     echo "Running hello_binary with NAME=$NAME"
-          #     /app/hello_binary "$NAME"
-          # command:
-          #   - "sh"
-          #   - "-c"
-          #   - |
-          #     NAME=$(buildkite-agent meta-data get NAME)
-          #     echo "Running hello_binary with NAME=$NAME"
-          #     /app/hello_binary "$NAME"
-          # # command:
-          #   - "sh"
-          #   - "-c"
-          #   - |
-          #     NAME=$(buildkite-agent meta-data get NAME)
-          #     echo "Running hello_binary with NAME=$NAME"
-          #     /app/hello_binary "$NAME"
-          # command:
-          #   - /app/hello_binary
-          #   - Joe
-          # command:
-          #   - "sh"
-          #   - "-c"
-          #   - |
-          #     NAME=$(buildkite-agent meta-data get NAME)
-          #     echo "Retrieved NAME: $NAME"
-          #     /app/hello_binary "$NAME"
-          # command:
-          #   - /app/hello_binary
-          #   - buildkite-agent meta-data get NAME
-          # command:
-          #   - "sh"
-          #   - "-c"
-          #   - |
-          #     NAME=$(buildkite-agent meta-data get NAME)
-          #     echo "Retrieved NAME: $NAME"
-          #     # ./hello_binary "$NAME"
-          #     "$NAME"
+          command: ["./hello_binary", "$$NAME"]
+
+  # - label: "Run Hello Binary Directly"
+  #   # command:
+  #   # - 'NAME=$(buildkite-agent meta-data get NAME) && /app/hello_binary "$NAME"'
+  #   plugins:
+  #     - docker-compose#v3.0.3:
+  #         run: app
+  #         propagate-environment: true
+  #         # env:
+  #         #   - NAME=$(buildkite-agent meta-data get NAME)
+  #         command:
+  #           # - echo $(buildkite-agent meta-data get NAME)
+  #           - /app/hello_binary johnny
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     echo $(buildkite-agent meta-data get NAME)
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     /app/hello_binary "$NAME"
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     /app/hello_binary "$NAME"
+  # # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Running hello_binary with NAME=$NAME"
+  #     /app/hello_binary "$NAME"
+  # command:
+  #   - /app/hello_binary
+  #   - Joe
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Retrieved NAME: $NAME"
+  #     /app/hello_binary "$NAME"
+  # command:
+  #   - /app/hello_binary
+  #   - buildkite-agent meta-data get NAME
+  # command:
+  #   - "sh"
+  #   - "-c"
+  #   - |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Retrieved NAME: $NAME"
+  #     # ./hello_binary "$NAME"
+  #     "$NAME"
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
