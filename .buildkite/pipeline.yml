@@ -3,7 +3,7 @@ steps:
     command:
       - "ls -R"
 
-  - command: test.sh
+  - command: ./test.sh
     plugins:
       - docker-compose#v5.3.0:
           run: app
