@@ -43,9 +43,11 @@ steps:
           environment:
             - NAME
           command:
-            - /bin/sh
-            - -c
-            - 'echo "$NAME" | xargs ./hello_binary'
+            - NAME
+          # command:
+          #   - /bin/sh
+          #   - -c
+          #   - 'echo "NAME" | xargs ./hello_binary'
   # - label: "Run Hello Binary Directly"
   #   plugins:
   #     - docker-compose#v3.0.3:
