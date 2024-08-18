@@ -10,15 +10,15 @@ steps:
             [
               "sh",
               "-c",
-              "go build -o hello ./hello/hello.go && mv hello ./hello/",
+              "cd hello && go build -o hello hello.go && mv hello ../",
             ]
     artifact_paths:
-      - hello/hello
+      - hello
 
   - wait
 
   - label: "Run Hello Program"
-    command: "./hello/hello Buildkite"
+    command: "./hello Buildkite"
 # steps:
 #   - label: "Build Go Application"
 #     plugins:
