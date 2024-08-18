@@ -29,12 +29,12 @@ steps:
       buildkite-agent meta-data get NAME
 
   - label: "Run Hello Binary in Container"
-      plugins:
-        - docker-compose#v3.0.3:
-            run: app
-            command: ["./hello_binary", "$$NAME"]
-      env:
-        NAME: ${NAME:-$(buildkite-agent meta-data get NAME)}
+    plugins:
+      - docker-compose#v3.0.3:
+          run: app
+          command: ["./hello_binary", "$$NAME"]
+    env:
+      NAME: ${NAME:-$(buildkite-agent meta-data get NAME)}
 
   # - label: "Run Hello Binary Directly"
   #   plugins:
