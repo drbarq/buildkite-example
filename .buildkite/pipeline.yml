@@ -45,7 +45,7 @@ steps:
             [
               "sh",
               "-c",
-              "echo 'Contents of /app:' && ls -R /app && echo 'Contents of /app/hello_dir:' && ls -R /app/hello_dir && echo 'hello.go file content:' && cat /app/hello_dir/hello.go",
+              "ls -R /app && cat /app/hello_dir/hello.go && cd /app/hello_dir && GO111MODULE=off go build -o ../hello_binary hello.go && ../hello_binary 'Buildkite'",
             ]
 
   - label: "Build Go Application"
