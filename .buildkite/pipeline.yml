@@ -43,7 +43,7 @@ steps:
             - "-c"
             - |
               NAME=$(buildkite-agent meta-data get NAME)
-              echo "Running hello_binary with name=$NAME"
+              echo "Running hello_binary with NAME=$NAME"
               ./hello_binary "$NAME"
 
 # steps:
