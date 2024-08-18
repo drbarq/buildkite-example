@@ -34,10 +34,12 @@ steps:
     command:
       - "ls -R"
 steps:
-  - label: "Build and Run with Docker Compose"
+  - name: "Docker Test %n"
+    command: test.sh
     plugins:
-      - docker-compose#v3.7.0:
+      - docker-compose#v3.0.3:
           run: app
+
 
 
   - label: "Build Go Application"
