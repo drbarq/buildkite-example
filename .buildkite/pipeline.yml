@@ -4,42 +4,28 @@ steps:
 
   - label: "Run test script"
     command: ./test.sh
-# steps:
-#   - label: "Debug Step"
-#     command:
-#       - pwd
-#       - ls -la
-#       - env
-#   - label: "Test Step"
-#     command:
-#       - bash
-#       - -c
-#       - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-2/test.sh"
-# steps:
-#   - label: "Simple Command"
-#     command: "echo 'Hello, Buildkite!'"
 
-#   # - label: "Build Go Application"
-#   #   plugins:
-#   #     - docker#v3.7.0:
-#   #         image: "golang:1.18.0"
-#   #         workdir: "/app"
-#   #         volumes:
-#   #           - ".:/app"
-#   #         command: "go build -o hello ./hello"
-#   #   artifact_paths:
-#   #     - "hello"
-#   # hello
+  - label: "Build Go Application"
+    plugins:
+      - docker#v3.7.0:
+          image: "golang:1.18.0"
+          workdir: "/app"
+          volumes:
+            - ".:/app"
+          command: "go build -o hello ./hello"
+    artifact_paths:
+      - "hello"
 
-#   - block: "Enter your name"
+  - block: "Enter your name"
+    prompt: "What's your name?"
 
-#   - label: "Run Program"
-#     plugins:
-#       - docker#v3.7.0:
-#           image: "alpine:latest"
-#           workdir: "/app"
-#           volumes:
-#             - ".:/app"
-#           command: './hello "$(buildkite-agent meta-data get name)"'
-#     artifact_paths:
-#       - "hello"
+  - label: "Run Program"
+    plugins:
+      - docker#v3.7.0:
+          image: "alpine:latest"
+          workdir: "/app"
+          volumes:
+            - ".:/app"
+          command: './hello "$(buildkite-agent meta-data get name)"'
+    artifact_paths:
+      - "hello"
