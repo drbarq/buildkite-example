@@ -30,8 +30,7 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          command:
-            ["./hello_binary", "$(buildkite-agent meta-data get username)"]
+          command: ["./hello_binary", "$(buildkite-agent meta-data get name)"]
 
   # - label: "Run Hello Binary Inside Docker Container"
   #   plugins:
