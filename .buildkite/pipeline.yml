@@ -1,6 +1,9 @@
 steps:
   - label: "Test Step"
-    command: "./test.sh"
+    command:
+      - bash
+      - -c
+      - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-2/test.sh"
 # steps:
 #   - label: "Simple Command"
 #     command: "echo 'Hello, Buildkite!'"
