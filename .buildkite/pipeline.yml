@@ -13,7 +13,7 @@ steps:
   - wait
 
   - block: "Pause before entering name"
-    prompt: "Are you ready to enter your name?"
+    prompt: "Please enter your name in the following input step."
 
   - input: "Enter your name"
     fields:
