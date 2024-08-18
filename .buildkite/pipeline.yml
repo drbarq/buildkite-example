@@ -25,9 +25,7 @@ steps:
       - docker-compose#v3.0.3:
           run: app
           command:
-            - "sh"
-            - "-c"
-            - "./run.sh"
+            - "$(buildkite-agent meta-data get name)"
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:

@@ -35,11 +35,10 @@ WORKDIR /app
 # Copy all files and folders from the build context to /app
 COPY . .
 
-# Create a script that will retrieve the metadata and run the binary
-RUN echo '#!/bin/sh\n./hello_binary "$(buildkite-agent meta-data get name)"' > run.sh
-RUN chmod +x run.sh
-
 # Build the Go application
 RUN cd /app/hello_dir && go build -o ../hello_binary hello.go
 
-CMD ["./run.sh"]
+# Use ENTRYPOINT to ensure arguments are passed to the binary
+ENTRYPOINT ["./hello_binary"]
+
+
