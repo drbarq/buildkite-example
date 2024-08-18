@@ -1,15 +1,19 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "Setting up the pipeline..."
+
+buildkite-agent pipeline upload << YAML
 steps:
-  - label: "Verify Buildkite Directory Structure"
-    command:
-      - "ls -R"
+  - block: "Pause before entering name"
+    prompt: "Please enter your name in the following input step."
 
-  - label: "Build Go Application"
-    plugins:
-      - docker-compose#v3.0.3:
-          build: app
-    artifact_paths:
-      - "hello_binary"
+  - input: "Enter your name"
+    fields:
+      - text: "Your name"
+        key: "NAME"
+        required: true
 
-  - label: ":magic_wand: Let's Begin"
-    key: "begin"
-    command: ".buildkite/setup.sh"
+  - label: ":robot_face: Process Input"
+    command: ".buildkite/process.sh"
+YAML
