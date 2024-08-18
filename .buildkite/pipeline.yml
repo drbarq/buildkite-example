@@ -25,14 +25,14 @@ steps:
   #   command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
 
   - label: "Run Hello Binary in Docker"
-      command: |
-        NAME=$(buildkite-agent meta-data get NAME)
-        if [ -z "$NAME" ]; then
-          echo "ERROR: NAME is not set in meta-data"
-          exit 1
-        fi
-        echo "Running Docker with NAME: $NAME"
-        docker-compose run --rm -e NAME="$NAME" app ./hello_binary
+    command: |
+      NAME=$(buildkite-agent meta-data get NAME)
+      if [ -z "$NAME" ]; then
+        echo "ERROR: NAME is not set in meta-data"
+        exit 1
+      fi
+      echo "Running Docker with NAME: $NAME"
+      docker-compose run --rm -e NAME="$NAME" app ./hello_binary
   # - label: "Run Hello Binary with Name"
   #   command: |
   #     NAME=$(buildkite-agent meta-data get NAME)
