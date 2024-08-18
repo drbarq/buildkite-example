@@ -1,4 +1,6 @@
 steps:
+  - label: ":pipeline:"
+    command: buildkite-agent pipeline upload
   - label: "Simple Echo"
     command: echo "Hello, Buildkite!"
 # steps:
