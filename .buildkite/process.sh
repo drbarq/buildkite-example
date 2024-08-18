@@ -1,7 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-NAME=""
+NAME=$(buildkite-agent meta-data get NAME)
+echo "Retrieved NAME from meta-data: $NAME"
+
+# Your original script logic
 until [ ${#NAME} -gt 0 ]
 do
   echo "Script is checking for NAME"
@@ -12,8 +15,6 @@ do
   echo "stored var $NAME2"
   sleep 5
 done
-
-echo "Retrieved NAME from meta-data: $NAME"
 
 buildkite-agent pipeline upload << YAML
 steps:
@@ -49,20 +50,6 @@ steps:
           - label: ":wave: Say hello again"
             value: "say_hello"
 
-  - label: ":robot_face: Process Input"
-    command: ".buildkite/process.sh"
+  - label: ":robot_face: Process Input Again"
+    command: ".buildkite/process_again.sh"
 YAML
-
-if [ "$(buildkite-agent meta-data get action)" = "enter_name" ]; then
-  buildkite-agent pipeline upload << YAML
-steps:
-  - input: "Enter your name"
-    fields:
-      - text: "Your name"
-        key: "NAME"
-        required: true
-
-  - label: ":robot_face: Process Input"
-    command: ".buildkite/process.sh"
-YAML
-fi
