@@ -14,11 +14,11 @@ steps:
 
   - label: "Run Program"
     plugins:
-      - docker#v3.7.0:
+      - docker#v3.7.0":
           image: "alpine:latest"
           workdir: "/app/hello"
           volumes:
             - ".:/app"
-          command: './hello "$(buildkite-agent meta-data get name)"'
+          command: "./hello \"$(buildkite-agent meta-data get name)\""
     artifact_paths:
       - "hello/hello"
