@@ -24,7 +24,6 @@ import (
         "os"
 )
 
-
 func main() {
 	
 	name := strings.Join(os.Args[1:]," ")
