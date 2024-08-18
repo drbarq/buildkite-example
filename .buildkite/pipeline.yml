@@ -1,5 +1,5 @@
 steps:
-  - label: "Build Go Application"
+  - label: "Debug Directory Structure"
     plugins:
       - docker#v5.11.0:
           image: "golang:1.18.0"
@@ -10,8 +10,18 @@ steps:
             [
               "sh",
               "-c",
-              "cd hello && go build -o hello hello.go && mv hello ../",
+              "pwd && ls -R && echo 'Content of go.mod:' && cat go.mod",
             ]
+
+  - label: "Build Go Application"
+    plugins:
+      - docker#v5.11.0:
+          image: "golang:1.18.0"
+          workdir: "/app"
+          volumes:
+            - ".:/app"
+          command:
+            ["sh", "-c", "go build -o hello hello.go && ./hello Buildkite"]
     artifact_paths:
       - hello
 
