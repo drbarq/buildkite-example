@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    entrypoint: ["/app/hello_binary"]
+    entrypoint: ["./hello_binary"]
     # command: ["${NAME}"]
     # command: ./hello_binary ${NAME}
     # entrypoint: ["sh", "-c"]
