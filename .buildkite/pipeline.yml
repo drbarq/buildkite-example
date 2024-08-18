@@ -52,7 +52,7 @@ steps:
       - docker-compose#v3.0.3:
           run: app
           command:
-            - /app/hello_binary
+            # - /app/hello_binary
             - "${NAME}"
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
