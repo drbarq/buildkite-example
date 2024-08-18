@@ -10,7 +10,7 @@ steps:
             [
               "sh",
               "-c",
-              "pwd && ls -la && echo 'Content of go.mod:' && cat go.mod && echo 'Content of hello.go:' && cat hello.go",
+              "pwd && ls -R && echo 'Content of go.mod:' && cat go.mod && echo 'Content of hello/hello.go:' && cat hello/hello.go",
             ]
 
   - label: "Build Go Application"
@@ -21,7 +21,11 @@ steps:
           volumes:
             - ".:/app"
           command:
-            ["sh", "-c", "go build -o hello hello.go && ./hello Buildkite"]
+            [
+              "sh",
+              "-c",
+              "cd hello && go build -o hello hello.go && mv hello .. && cd .. && ./hello Buildkite",
+            ]
     artifact_paths:
       - hello
 
