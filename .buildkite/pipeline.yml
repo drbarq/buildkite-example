@@ -21,7 +21,11 @@ steps:
           volumes:
             - ".:/app"
           command:
-            ["sh", "-c", "go build -o hello hello.go && ./hello Buildkite"]
+            [
+              "sh",
+              "-c",
+              "go build -o hello ./hello/hello.go && ./hello Buildkite",
+            ]
     artifact_paths:
       - hello
 
