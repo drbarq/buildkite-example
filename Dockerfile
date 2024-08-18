@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Debug to ensure files are in place
-RUN ls -R /app && cat /app/hello_dir/hello.go
+RUN echo "Files in /app after COPY:" && ls -R /app
 
 # Build the Go application
 RUN cd /app/hello_dir && go build -o ../hello_binary hello.go
