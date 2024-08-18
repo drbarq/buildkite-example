@@ -18,16 +18,18 @@ steps:
   - input: "Enter your name"
     fields:
       - text: "Your name"
-        key: "name"
+        key: "NAME"
 
   - label: "Run Script"
     command: script.sh
 
-  # - label: "Debug: Check Metadata"
-  #   command: |
-  #     echo "Attempting to retrieve name from metadata..."
-  #     name=$(buildkite-agent meta-data get name)
-  #     echo "Retrieved name: $name"
+  - label: "Debug: Check Metadata"
+    command: |
+      echo "Attempting to retrieve name from metadata..."
+      NAME=$(buildkite-agent meta-data get NAME)
+      name=$(buildkite-agent meta-data get name)
+      echo "Retrieved name: $NAME
+      echo "Retrieved name: $name"
 
   # - label: "Set Name Environment Variable"
   #   command: |
