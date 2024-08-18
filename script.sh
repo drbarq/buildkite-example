@@ -4,7 +4,7 @@ NAME=""
 
 until [ ${#NAME} -gt 0 ]
 do
-  echo "Script is checking for name"
+  echo "Script is checking for NAME"
   NAME=$(buildkite-agent meta-data get NAME)
   echo "Script run by $NAME"
   buildkite-agent meta-data set "NAME" "$NAME"

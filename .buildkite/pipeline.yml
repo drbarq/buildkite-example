@@ -27,9 +27,8 @@ steps:
     command: |
       echo "Attempting to retrieve name from metadata..."
       NAME=$(buildkite-agent meta-data get NAME)
-      name=$(buildkite-agent meta-data get name)
-      echo "Retrieved name: $NAME
-      echo "Retrieved name: $name"
+      echo "Retrieved name: $NAME"
+
 
   # - label: "Set Name Environment Variable"
   #   command: |
