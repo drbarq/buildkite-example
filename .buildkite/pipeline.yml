@@ -20,6 +20,12 @@ steps:
       - text: "Your name"
         key: "name"
 
+  - label: "Debug: Check Metadata"
+    command: |
+      echo "Attempting to retrieve name from metadata..."
+      name=$(buildkite-agent meta-data get "name")
+      echo "Retrieved name: $name"
+
   - label: "Set Name Environment Variable"
     command: |
       name=$(buildkite-agent meta-data get "name")
