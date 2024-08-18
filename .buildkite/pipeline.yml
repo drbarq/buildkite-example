@@ -16,9 +16,8 @@ steps:
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
       echo "NAME from environment: $NAME"
 
-  -label: "print vars"
+  - label: "print vars"
     command: echo buildkite-agent meta-data keys
-
 
   - label: "Store NAME"
     command: buildkite-agent meta-data set "NAME" "$(buildkite-agent meta-data get NAME)"
