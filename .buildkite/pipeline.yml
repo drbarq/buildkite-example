@@ -56,13 +56,15 @@ steps:
           propagate-environment: true
           # env:
           #   - NAME=$(buildkite-agent meta-data get NAME)
-          command:
-            - "sh"
-            - "-c"
-            - |
-              NAME=$(buildkite-agent meta-data get NAME)
-              echo "Running hello_binary with NAME=$NAME"
-              /app/hello_binary "$NAME"
+          command: echo $(buildkite-agent meta-data get NAME)
+          # command:
+          #   - "sh"
+          #   - "-c"
+          #   - |
+          #     echo $(buildkite-agent meta-data get NAME)
+          #     NAME=$(buildkite-agent meta-data get NAME)
+          #     echo "Running hello_binary with NAME=$NAME"
+          #     /app/hello_binary "$NAME"
           # command:
           #   - "sh"
           #   - "-c"
@@ -98,7 +100,6 @@ steps:
           #     echo "Retrieved NAME: $NAME"
           #     # ./hello_binary "$NAME"
           #     "$NAME"
-
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
