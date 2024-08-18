@@ -2,14 +2,19 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
-  - command: |
-      echo "Contents of /app directory:"
-      ls -R /app
-      echo "Running test.sh"
-      /app/test.sh
+  - label: "Verify Directory Structure in Docker Container"
     plugins:
-      - docker-compose#v5.3.0:
+      - docker-compose#v3.0.3:
           run: app
+          command: ls -R /
+  # - command: |
+  #     echo "Contents of /. directory:"
+  #     ls -R /.
+  #     echo "Running test.sh"
+  #     /app/test.sh
+  #   plugins:
+  #     - docker-compose#v5.3.0:
+  #         run: app
 
   # - label: "Run Application with Docker Compose"
   #   plugins:
