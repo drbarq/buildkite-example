@@ -33,18 +33,10 @@ steps:
   - label: "Verify Buildkite Directory Structure"
     command:
       - "ls -R"
-
-  # - label: "Install Docker Compose"
-  #   command: |
-  #     curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*?(?=")')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  #     chmod +x /usr/local/bin/docker-compose
-  #     docker-compose --version
-
  - label: "Build Application with Docker Compose"
     plugins:
       - docker-compose#v3.0.3:
           build: app
-
   - label: "Run Application with Docker Compose"
     plugins:
       - docker-compose#v3.0.3:
