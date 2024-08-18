@@ -53,14 +53,22 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
+          env:
+            - NAME=$(buildkite-agent meta-data get NAME)
           command:
             - "sh"
             - "-c"
             - |
-              NAME=$(buildkite-agent meta-data get NAME)
               echo "Running hello_binary with NAME=$NAME"
               /app/hello_binary "$NAME"
           # command:
+          #   - "sh"
+          #   - "-c"
+          #   - |
+          #     NAME=$(buildkite-agent meta-data get NAME)
+          #     echo "Running hello_binary with NAME=$NAME"
+          #     /app/hello_binary "$NAME"
+          # # command:
           #   - "sh"
           #   - "-c"
           #   - |
