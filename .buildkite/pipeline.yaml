@@ -1,28 +1,41 @@
+# steps:
+#   - label: "Simple Command"
+#     command: "echo 'Hello, Buildkite!'"
+
+#   # - label: "Build Go Application"
+#   #   plugins:
+#   #     - docker#v3.7.0:
+#   #         image: "golang:1.18.0"
+#   #         workdir: "/app"
+#   #         volumes:
+#   #           - ".:/app"
+#   #         command: "go build -o hello ./hello"
+#   #   artifact_paths:
+#   #     - "hello"
+#   # hello
+
+#   - block: "Enter your name"
+
+#   - label: "Run Program"
+#     plugins:
+#       - docker#v3.7.0:
+#           image: "alpine:latest"
+#           workdir: "/app"
+#           volumes:
+#             - ".:/app"
+#           command: './hello "$(buildkite-agent meta-data get name)"'
+#     artifact_paths:
+#       - "hello"
+
 steps:
-  - label: "Simple Command"
-    command: "echo 'Hello, Buildkite!'"
+  - label: "Simple Echo Command"
+    command: "echo 'Hello, we made it!'"
 
-  # - label: "Build Go Application"
-  #   plugins:
-  #     - docker#v3.7.0:
-  #         image: "golang:1.18.0"
-  #         workdir: "/app"
-  #         volumes:
-  #           - ".:/app"
-  #         command: "go build -o hello ./hello"
-  #   artifact_paths:
-  #     - "hello"
-  # hello
+  - label: "Another Echo Command"
+    command: "echo 'This is another step in our pipeline.'"
 
-  - block: "Enter your name"
-
-  - label: "Run Program"
-    plugins:
-      - docker#v3.7.0:
-          image: "alpine:latest"
-          workdir: "/app"
-          volumes:
-            - ".:/app"
-          command: './hello "$(buildkite-agent meta-data get name)"'
-    artifact_paths:
-      - "hello"
+  - label: "Final Echo Command"
+    command: |
+      echo "This is a multi-line command example."
+      echo "We're still in the same step."
+      echo "Pipeline completed successfully!"
