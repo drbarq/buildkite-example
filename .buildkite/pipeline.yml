@@ -45,7 +45,9 @@ steps:
           command:
             - "sh"
             - "-c"
-            - './hello_binary "$(buildkite-agent meta-data get NAME)"'
+            - |
+              NAME=$(buildkite-agent meta-data get NAME)
+              ./hello_binary "$NAME"
 # steps:
 #   - label: "Verify Buildkite Directory Structure"
 #     command:
