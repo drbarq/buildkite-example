@@ -33,7 +33,6 @@ steps:
 
   - label: "Run Hello Program"
     command: "./hello Buildkite"
-# steps:
 #   - label: "Build Go Application"
 #     plugins:
 #       - docker#v3.7.0:
