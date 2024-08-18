@@ -14,15 +14,15 @@ steps:
   #     - "hello"
   # hello
 
-  # - block: "Enter your name"
+  - block: "Enter your name"
 
-  # - label: "Run Program"
-  #   plugins:
-  #     - docker#v3.7.0:
-  #         image: "alpine:latest"
-  #         workdir: "/app"
-  #         volumes:
-  #           - ".:/app"
-  #         command: "./hello \"$(buildkite-agent meta-data get name)\""
-  #   artifact_paths:
-  #     - "hello"
+  - label: "Run Program"
+    plugins:
+      - docker#v3.7.0:
+          image: "alpine:latest"
+          workdir: "/app"
+          volumes:
+            - ".:/app"
+          command: './hello "$(buildkite-agent meta-data get name)"'
+    artifact_paths:
+      - "hello"
