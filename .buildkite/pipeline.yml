@@ -52,6 +52,7 @@ steps:
       - docker-compose#v3.0.3:
           run: app
           command:
+            - /app/hello_binary
             - Joe
           # command:
           #   - "sh"
