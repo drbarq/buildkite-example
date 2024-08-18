@@ -1,4 +1,5 @@
 steps:
+  - command: buildkite-agent pipeline upload
   - label: "Debug Step"
     command:
       - pwd
@@ -8,7 +9,18 @@ steps:
     command:
       - bash
       - -c
-      - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-2/test.sh"
+      - "./test.sh"
+# steps:
+#   - label: "Debug Step"
+#     command:
+#       - pwd
+#       - ls -la
+#       - env
+#   - label: "Test Step"
+#     command:
+#       - bash
+#       - -c
+#       - "/opt/homebrew/var/buildkite-agent/builds/Joes-MBP-1/bredkrum/app-test-2/test.sh"
 # steps:
 #   - label: "Simple Command"
 #     command: "echo 'Hello, Buildkite!'"
