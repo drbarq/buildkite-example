@@ -53,8 +53,9 @@ steps:
     plugins:
       - docker-compose#v3.0.3:
           run: app
-          env:
-            - NAME=$(buildkite-agent meta-data get NAME)
+          propagate-environment: true
+          # env:
+          #   - NAME=$(buildkite-agent meta-data get NAME)
           command:
             - "sh"
             - "-c"
