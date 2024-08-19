@@ -172,8 +172,8 @@ steps:
   #   env:
   #     PEM_CONTENT: "$PEM_CONTENT"
 
-  - label: ":white_check_mark: Deployment Complete"
-    command: echo "Deployment successful!"
+  # - label: ":white_check_mark: Deployment Complete"
+  #   command: echo "Deployment successful!"
 # # old config
 # steps:
 #   - block: "Pause before entering name"
