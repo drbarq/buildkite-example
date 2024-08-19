@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-DOCKER_USERNAME="your-docker-usernsdfsdafame"
-DOCKER_PASSWORD="your-docker-passwosadfasdfrd"
+DOCKER_USERNAME="jtustin"
+DOCKER_PASSWORD="SKEA_maug2eeff"
 
 
 echo "Script is checking for NAME"

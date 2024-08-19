@@ -21,14 +21,12 @@ steps:
       echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)"
       echo "Docker password: $(buildkite-agent meta-data get DOCKER_PASSWORD)"
       env | sort
-      echo "Docker-related environment variables:"
-      env | grep -i docker || echo "No Docker-related environment variables found"
 
   - label: "Docker Login"
     plugins:
       - docker-login#v2.0.1:
-          username: jtustin
-          password-env: SKEA_maug2eeff
+          username: $(buildkite-agent meta-data get DOCKER_USERNAME)
+          password-env: $(buildkite-agent meta-data get DOCKER_PASSWORD)
 
   - wait: ~
 
@@ -37,7 +35,7 @@ steps:
       - docker-compose#v3.9.0:
           build: app
           image-repository: bredkrum/app-test-3
-          push: app:${DOCKER_REPO}:${BUILDKITE_BUILD_NUMBER}
+          push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
 
   - label: ":package: Create Artifact"
     plugins:
@@ -125,3 +123,5 @@ steps:
 # echo "Meta-data values:"
 # buildkite-agent meta-data get DOCKER_USERNAME || echo "DOCKER_USERNAME not set in meta-data"
 # [[ -n "$(buildkite-agent meta-data get DOCKER_PASSWORD)" ]] && echo "DOCKER_PASSWORD is set in meta-data" || echo "DOCKER_PASSWORD not set in meta-data"
+# echo "Docker-related environment variables:"
+# env | grep -i docker || echo "No Docker-related environment variables found"
