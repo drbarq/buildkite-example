@@ -56,20 +56,6 @@ steps:
       chmod +x hello_binary
       ./hello_binary $(buildkite-agent meta-data get NAME)
 
-  #   - label: ":cloud: Deploy to EC2"
-
-  - label: ":mag: Debug: List Artifacts"
-    command: |
-      # Create a temporary directory for debugging
-      mkdir -p /tmp/artifacts-debug
-
-      # Download all artifacts to the temporary directory
-      buildkite-agent artifact download "*" /tmp/artifacts-debug
-
-      # List all downloaded artifacts to check what's available
-      echo "Artifacts available for this build:"
-      ls -la /tmp/artifacts-debug
-
   - label: ":cloud: Deploy to EC2"
     command: |
       echo "Deploying to EC2 instance..."
@@ -79,6 +65,16 @@ steps:
       ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
         echo "Connected to EC2"
         # Update and install necessary packages
+
+      # Create a temporary directory for debugging
+      mkdir -p /tmp/artifacts-debug
+
+      # Download all artifacts to the temporary directory
+      buildkite-agent artifact download "*" /tmp/artifacts-debug
+
+      # List all downloaded artifacts to check what's available
+      echo "Artifacts available for this build:"
+      ls -la /tmp/artifacts-debug
         sudo yum update -y
 
         # Install Docker
