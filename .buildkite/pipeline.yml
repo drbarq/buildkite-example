@@ -1,7 +1,6 @@
 steps:
-  - label: "Fix Permissions Before Checkout"
+  - label: "Clean Workspace"
     command: |
-      sudo chmod -R u+w /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3
       sudo rm -rf /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3/*
     agents:
       location: "remote"
