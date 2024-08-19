@@ -28,6 +28,7 @@ steps:
       # Add your Docker commands here, for example:
       # docker pull your-image:tag
       # docker run your-image:tag
+
   # - label: "set agent  env"
   #   # command: ./run_build.sh
   #   plugins:
