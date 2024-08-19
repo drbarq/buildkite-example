@@ -36,7 +36,9 @@ steps:
     plugins:
       - docker-compose#v5.3.0:
           run: app
-          command: ["./hello_binary", "$$NAME"]
+          # command: ["./hello_binary", "$$NAME"]
+          command:
+            - NAME
           env:
             - NAME=$(buildkite-agent meta-data get NAME)
 
