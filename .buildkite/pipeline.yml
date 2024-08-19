@@ -80,6 +80,7 @@ steps:
       # # List all downloaded artifacts to check what's available
       # echo "Artifacts available for this build:"
       # ls -la /tmp/artifacts-debug
+      # ls -la /tmp/artifacts-debug
         sudo yum update -y
 
         # Install Docker
