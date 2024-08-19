@@ -19,6 +19,7 @@ steps:
       # docker pull your-image:tag
       # docker run your-image:tag
 
+  # - wait: ~
   - wait: ~
 
   - label: "Verify :docker: Login"
