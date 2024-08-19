@@ -1,18 +1,4 @@
 steps:
-  # - block: "Pause before entering name"
-  #   prompt: "Please enter your name in the following input step."
-
-  # - input: "Enter your name"
-  #   fields:
-  #     - text: "Your name"
-  #       key: "NAME"
-  #       required: true
-
-  # - label: "Run :purescript:"
-  #   command: script.sh
-
-  - wait: ~
-
   - label: ":docker: Login and Run Command"
     plugins:
       - docker-login#v2.0.1:
@@ -63,10 +49,10 @@ steps:
       buildkite-agent meta-data keys
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
 
-  - label: "Run Hello Binary with Name"
+  - label: ":runner: Hello Binary with :buildkite: Name"
     command: |
       buildkite-agent artifact download hello_binary .
-      ls -la
+      # ls -la
       chmod +x hello_binary
       ./hello_binary $(buildkite-agent meta-data get NAME)
 
