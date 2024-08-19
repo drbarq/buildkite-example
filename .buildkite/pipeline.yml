@@ -93,6 +93,8 @@ steps:
 
       # ls -la $(pwd)/hello_dir
 
+      sudo chmod u+w $(pwd)
+
       # Compile the Go program for the current architecture
       GOOS=linux GOARCH=amd64 go build -o $(pwd)/hello_dir/hello_binary $(pwd)/hello_dir/hello.go
 
@@ -103,7 +105,6 @@ steps:
 
 
       # Run the binary
-      # echo "$(pwd)/hello_dir/hello_binary"
       $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
       # $(pwd)/hello_dir/hello_binary "Joe"
 
@@ -111,69 +112,6 @@ steps:
       echo "Deployment finished!"
     agents:
       location: "remote"
-
-  # - label: ":cloud: Deploy to EC2"
-  #   command: |
-  #     # echo "Deploying to EC2 instance..."
-  #     echo "Deploying to EC2 instance..."
-  #     # pwd
-  #     # # ls -la ../
-  #     # ls -la
-  #     ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
-  #     # ssh -A ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
-  #       echo "Connected to EC2"
-
-  #       # Update and install necessary packages
-
-  #     # # Create a temporary directory for debugging
-  #     # mkdir -p /tmp/artifacts-debug
-
-  #     # # Download all artifacts to the temporary directory
-  #     # buildkite-agent artifact download "*" /tmp/artifacts-debug
-
-  #     # # List all downloaded artifacts to check what's available
-  #     # echo "Artifacts available for this build:"
-  #     # ls -la /tmp/artifacts-debug
-  #     # ls -la /tmp/artifacts-debug
-  #       sudo yum update -y
-
-  #       # Install Docker
-  #       sudo dnf install docker -y
-  #       sudo systemctl start docker
-  #       sudo systemctl enable docker
-  #       sudo usermod -aG docker ec2-user
-
-  #       # Install Docker Compose
-  #       sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  #       sudo chmod +x /usr/local/bin/docker-compose
-  #       sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
-  #       # Navigate to your application's directory
-  #       cd ec2_app
-  #       # cd /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3/
-
-  #       # Download the artifact from Buildkite
-  #       buildkite-agent artifact download hello_binary . --build "$BUILDKITE_BUILD_NUMBER" --pipeline "$BUILDKITE_PIPELINE_SLUG"
-  #       # buildkite-agent artifact download "*" .
-  #       # buildkite-agent artifact download --help
-  #       ls -la
-
-  #       # Make the binary executable
-  #       chmod +x hello_binary
-  #       # Run the binary or continue with your deployment
-  #       ./hello_binary
-
-  #       # # Extract the artifact
-  #       # tar -xzf hello_binary.tar.gz
-
-  #       # # Build and start the containers/services
-  #       # docker-compose up -d --build
-  #       echo "Deployment finished!"
-  #     EOF
-  #   agents:
-  #     location: "local"
-  #   env:
-  #     PEM_CONTENT: "$PEM_CONTENT"
 
   - label: ":white_check_mark: Deployment Complete"
     command: echo "Deployment successful!"
