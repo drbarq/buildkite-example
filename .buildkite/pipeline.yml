@@ -35,5 +35,5 @@ steps:
     plugins:
       - docker-compose#v5.3.0:
           run: app
-          command: [$(buildkite-agent meta-data get NAME]
+          command: $(buildkite-agent meta-data get NAME
           propagate-environment: true
