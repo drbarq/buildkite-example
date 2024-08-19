@@ -14,11 +14,16 @@ steps:
   - label: "set agent env"
     command: agent.sh
 
+  - wait: ~
+
   - label: "Debug Environment"
     command: |
-      echo "Docker username: $DOCKER_USERNAME"
-      echo "Docker password is set: $([[ -n $DOCKER_PASSWORD ]] && echo 'Yes' || echo 'No')"
-      env | grep DOCKER
+      echo "Docker username: ${DOCKER_USERNAME:-Not set}"
+      echo "Docker password is set: $([[ -n "${DOCKER_PASSWORD:-}" ]] && echo 'Yes' || echo 'No')"
+      echo "All environment variables:"
+      env | sort
+      echo "Docker-related environment variables:"
+      env | grep -i docker || echo "No Docker-related environment variables found"
 
   - label: "Docker Login"
     plugins:
