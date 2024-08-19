@@ -152,7 +152,7 @@ steps:
     command: |
       buildkite-agent artifact download hello_binary .
       ls -la
-      # chmod +x hello
+      chmod +x hello_binary  # Make the binary executable
       ./hello_binary $(buildkite-agent meta-data get NAME)
 
 # steps:
