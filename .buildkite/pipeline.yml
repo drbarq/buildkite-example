@@ -84,7 +84,7 @@ steps:
 
         # Download the artifact from Buildkite
         buildkite-agent artifact download hello_binary .
-
+        buildkite-agent artifact download --help
         ls -la
 
         # Make the binary executable
