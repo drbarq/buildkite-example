@@ -93,7 +93,7 @@ steps:
 
       # ls -la $(pwd)/hello_dir
 
-      sudo chmod u+w $(pwd)
+      # sudo chmod u+w $(pwd)
 
       # Compile the Go program for the current architecture
       GOOS=linux GOARCH=amd64 go build -o $(pwd)/hello_dir/hello_binary $(pwd)/hello_dir/hello.go
