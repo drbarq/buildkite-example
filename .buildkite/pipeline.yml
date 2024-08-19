@@ -122,6 +122,7 @@ steps:
   #     - "buildkite/artifacts/hello_binary"
   - label: "Build"
     command:
+      - "ls -la" # List files in the working directory
       - "go build -o hello_binary"
       - "buildkite-agent artifact upload hello_binary"
 
