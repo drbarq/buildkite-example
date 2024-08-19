@@ -1,8 +1,8 @@
 #!/bin/bash
 # set -euo pipefail
 
-DOCKER_USERNAME="jtustin"
-DOCKER_LOGIN_PASSWORD="SKEA_maug2eeff"
+DOCKER_USERNAME=jtustin
+DOCKER_LOGIN_PASSWORD=SKEA_maug2eeff
 
 
 # echo "Script is checking for NAME"
