@@ -82,10 +82,13 @@ steps:
   - label: ":cloud: Download Artifact and Deploy on EC2"
     command: |
       echo "Running on the remote EC2 instance"
-      
+
+      pwd
+
+
       # Download the artifact
       buildkite-agent artifact download hello_binary . --build "$BUILDKITE_BUILD_NUMBER" --pipeline "$BUILDKITE_PIPELINE_SLUG"
-      
+
       # Ensure the binary is executable
       chmod +x hello_binary
 
@@ -95,7 +98,7 @@ steps:
       # (Optional) Other deployment commands here
       echo "Deployment finished!"
     agents:
-      location: "remote"  # Runs on your EC2 instance
+      location: "remote" # Runs on your EC2 instance
 
   # - label: ":cloud: Deploy to EC2"
   #   command: |
@@ -103,11 +106,10 @@ steps:
   #     echo "Deploying to EC2 instance..."
   #     # pwd
   #     # # ls -la ../
-  #     # ls -la 
+  #     # ls -la
   #     ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
   #     # ssh -A ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
   #       echo "Connected to EC2"
-
 
   #       # Update and install necessary packages
 
