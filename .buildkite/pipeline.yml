@@ -17,7 +17,7 @@ steps:
     plugins:
       - docker-compose#v3.9.0:
           run: app
-          command: $(buildkite-agent meta-data get NAME)
+          command: [$(buildkite-agent meta-data get NAME)]
           # run: app
           # command: ["cp", "/app/hello_binary", "/buildkite/artifacts/"]
           # command: ["cp", "/app/hello_binary", "/buildkite/artifacts/"]
