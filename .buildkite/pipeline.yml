@@ -18,14 +18,24 @@ steps:
       echo "--- :mag: Printing all environment variables"
       env | sort
 
-  - label: "set agent  env"
-    # command: ./run_build.sh
+  - label: "Docker Login and Run Command"
     plugins:
       - docker-login#v2.0.1:
-          # username: DOCKER_USERNAME
-          # password-env: DOCKER_LOGIN_PASSWORD
           username: ${DOCKER_USERNAME}
           password-env: DOCKER_LOGIN_PASSWORD
+    command: |
+      echo "Docker login successful!"
+      # Add your Docker commands here, for example:
+      # docker pull your-image:tag
+      # docker run your-image:tag
+  # - label: "set agent  env"
+  #   # command: ./run_build.sh
+  #   plugins:
+  #     - docker-login#v2.0.1:
+  #         # username: DOCKER_USERNAME
+  #         # password-env: DOCKER_LOGIN_PASSWORD
+  #         username: ${DOCKER_USERNAME}
+  #         password-env: DOCKER_LOGIN_PASSWORD
 
   # - label: "Debug Environment"
   #   command: |
