@@ -8,7 +8,7 @@ steps:
         key: "NAME"
         required: true
 
- - label: ":docker: Build Application"
+  - label: ":docker: Build Application"
     plugins:
       - docker-compose#v3.9.0:
           build: app
