@@ -29,18 +29,12 @@ steps:
     plugins:
       - docker-compose#v5.3.0:
           build: app
+          # command: $(buildkite-agent meta-data get NAME)
 
   - wait
 
   - label: "Debug and Run Hello Binary with Name"
-    command: |
-      echo "Step 1: Retrieve NAME"
-      NAME=$(buildkite-agent meta-data get NAME)
-      echo "Retrieved NAME: ${NAME}"
-
-      echo "Step 2: Run Docker command"
-      docker-compose run --rm \
-        app ./hello_binary "${NAME}"
+    command: $(buildkite-agent meta-data get NAME)
 
   # - label: "Debug and Run Hello Binary with Name"
   #   command: |
