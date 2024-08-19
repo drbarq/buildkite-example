@@ -12,12 +12,16 @@ steps:
     plugins:
       - docker#v3.8.0:
           image: "golang:1.18.0"
-          command:
-            [
-              "sh",
-              "-c",
-              "go build -o hello && buildkite-agent artifact upload hello",
-            ]
+          command: ["go", "build", "-o", "hello"]
+
+  - label: ":arrow_up: Upload Artifact"
+    command: |
+      buildkite-agent artifact upload hello
+
+  #   - label: ":docker: Build"
+  #     plugins:
+  #       - docker-compose#v5.3.0:
+  #           build: app
 
   - wait
 
