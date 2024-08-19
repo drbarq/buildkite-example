@@ -25,8 +25,8 @@ steps:
   - label: "Docker Login"
     plugins:
       - docker-login#v2.0.1:
-          username: $(buildkite-agent meta-data get DOCKER_USERNAME)
-          password-env: $(buildkite-agent meta-data get DOCKER_PASSWORD)
+          username: buildkite-agent meta-data get DOCKER_USERNAME
+          password-env: buildkite-agent meta-data get DOCKER_PASSWORD
 
   - wait: ~
 
