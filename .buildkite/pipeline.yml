@@ -35,19 +35,33 @@ steps:
   - label: "Debug and Run Hello Binary with Name"
     command: |
       echo "Step 1: Retrieve NAME"
-      echo "Raw meta-data output: $(buildkite-agent meta-data get NAME)"
       NAME=$(buildkite-agent meta-data get NAME)
       echo "Retrieved NAME: ${NAME}"
-      
-      echo "Step 2: Set environment variable"
-      export BUILDKITE_NAME="${NAME}"
-      echo "BUILDKITE_NAME: ${BUILDKITE_NAME}"
-      
+
+      echo "Step 2: Create env file"
+      echo "BUILDKITE_NAME=${NAME}" > .env
+      cat .env
+
       echo "Step 3: Run Docker command"
       docker-compose run --rm \
-        -e BUILDKITE_NAME="${BUILDKITE_NAME}" \
+        --env-file .env \
         app sh -c 'echo "Inside Docker, NAME: ${BUILDKITE_NAME}" && ./hello_binary "${BUILDKITE_NAME}"'
 
+  # - label: "Debug and Run Hello Binary with Name"
+  #   command: |
+  #     echo "Step 1: Retrieve NAME"
+  #     echo "Raw meta-data output: $(buildkite-agent meta-data get NAME)"
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Retrieved NAME: ${NAME}"
+
+  #     echo "Step 2: Set environment variable"
+  #     export BUILDKITE_NAME="${NAME}"
+  #     echo "BUILDKITE_NAME: ${BUILDKITE_NAME}"
+
+  #     echo "Step 3: Run Docker command"
+  #     docker-compose run --rm \
+  #       -e BUILDKITE_NAME="${BUILDKITE_NAME}" \
+  #       app sh -c 'echo "Inside Docker, NAME: ${BUILDKITE_NAME}" && ./hello_binary "${BUILDKITE_NAME}"'
   # - label: "Run Hello Binary with Name"
   #   command: |
   #     export NAME=$(buildkite-agent meta-data get NAME)
