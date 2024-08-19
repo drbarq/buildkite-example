@@ -85,7 +85,7 @@ steps:
 
       echo $(buildkite-agent meta-data get NAME)
 
-      echo "{pwd}/hello_dir"
+      echo "$(pwd)/hello_dir"
 
       pwd
       # Download the artifact
@@ -98,7 +98,7 @@ steps:
 
       # Run the binary
       # echo "$(pwd)/hello_dir/hello_binary"
-      # $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
+      $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
 
       # (Optional) Other deployment commands here
       echo "Deployment finished!"
