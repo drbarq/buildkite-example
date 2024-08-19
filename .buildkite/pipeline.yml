@@ -1,12 +1,12 @@
 steps:
-  - block: "Pause before entering name"
-    prompt: "Please enter your name in the following input step."
+  # - block: "Pause before entering name"
+  #   prompt: "Please enter your name in the following input step."
 
-  - input: "Enter your name"
-    fields:
-      - text: "Your name"
-        key: "NAME"
-        required: true
+  # - input: "Enter your name"
+  #   fields:
+  #     - text: "Your name"
+  #       key: "NAME"
+  #       required: true
 
   - label: ":docker: Login and Run Command"
     plugins:
@@ -19,7 +19,6 @@ steps:
       # docker pull your-image:tag
       # docker run your-image:tag
 
-  # - wait: ~
   - wait: ~
 
   - label: "Verify :docker: Login"
