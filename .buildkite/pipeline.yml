@@ -18,7 +18,7 @@ steps:
     plugins:
       - docker-login#v2.0.1:
           username: DOCKER_USERNAME
-          password-env: DOCKER_PASSWORD
+          password-env: DOCKER_LOGIN_PASSWORD
 
   # - label: "Debug Environment"
   #   command: |
