@@ -8,13 +8,18 @@ steps:
         key: "NAME"
         required: true
 
-  - label: ":docker: Build and Create Artifact"
+ - label: ":docker: Build Application"
+    plugins:
+      - docker-compose#v3.9.0:
+          build: app
+
+  - label: ":package: Create Artifact"
     plugins:
       - docker-compose#v3.9.0:
           run: app
-          command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
+          command: ["cp", "/app/hello_binary", "/buildkite/artifacts/"]
     artifact_paths:
-      - "hello_binary"
+      - "buildkite/artifacts/hello_binary"
 
     #   - label: ":docker: Build"
   #     plugins:
