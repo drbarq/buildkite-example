@@ -13,7 +13,7 @@ steps:
 
   - wait: ~
 
-  - label: "Print Environment Variables"
+  - label: "Print EnvironmentVariables"
     command: |
       echo "--- :mag: Printing all environment variables"
       env | sort
