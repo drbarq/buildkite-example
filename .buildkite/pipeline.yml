@@ -147,7 +147,7 @@ steps:
       buildkite-agent artifact download hello_binary .
       ls -la
       # chmod +x hello
-      ./hello $(buildkite-agent meta-data get NAME)
+      hello_binary $(buildkite-agent meta-data get NAME)
 
   - wait
 
