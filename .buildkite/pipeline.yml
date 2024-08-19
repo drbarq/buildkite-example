@@ -29,6 +29,11 @@ steps:
       - "cd hello_dir && go build -o hello_binary"
       - "buildkite-agent artifact upload hello_binary"
 
+  - label: ":clipboard: Print Build Number"
+    command: |
+      echo "Build Number: $BUILDKITE_BUILD_NUMBER"
+      echo "Pipeline: $BUILDKITE_PIPELINE_SLUG"
+
   - wait
 
   - block: "Pause before entering name"
@@ -60,8 +65,8 @@ steps:
     command: |
       echo "Deploying to EC2 instance..."
       pwd
-      ls -la ../
-      ls -la 
+      # ls -la ../
+      # ls -la 
       ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
         echo "Connected to EC2"
         # Update and install necessary packages
@@ -95,7 +100,7 @@ steps:
         # Download the artifact from Buildkite
         buildkite-agent artifact download hello_binary .
         # buildkite-agent artifact download "*" .
-        # buildkite-agent artifact download --help
+        buildkite-agent artifact download --help
         ls -la
 
         # Make the binary executable
