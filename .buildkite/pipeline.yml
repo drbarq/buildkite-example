@@ -13,20 +13,24 @@ steps:
 
   - label: "set agent env"
     command: agent.sh
+    plugins:
+      - docker-login#v2.0.1:
+          username: DOCKER_USERNAME
+          password-env: DOCKER_PASSWORD
 
   - wait: ~
 
-  - label: "Debug Environment"
-    command: |
-      echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)"
-      echo "Docker password: $(buildkite-agent meta-data get DOCKER_PASSWORD)"
-      env | sort
+  # - label: "Debug Environment"
+  #   command: |
+  #     echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)"
+  #     echo "Docker password: $(buildkite-agent meta-data get DOCKER_PASSWORD)"
+  #     env | sort
 
-  - label: "Docker Login"
-    plugins:
-      - docker-login#v2.0.1:
-          username: buildkite-agent meta-data get DOCKER_USERNAME
-          password-env: buildkite-agent meta-data get DOCKER_PASSWORD
+  # - label: "Docker Login"
+  #   plugins:
+  #     - docker-login#v2.0.1:
+  #         username: { buildkite-agent meta-data get DOCKER_USERNAME }
+  #         password-env: buildkite-agent meta-data get DOCKER_PASSWORD
 
   - wait: ~
 
