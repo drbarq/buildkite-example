@@ -44,7 +44,7 @@ steps:
     agents:
       location: "local"
 
-  - wait
+  - wait: ~
 
   - block: "Pause before entering name"
     prompt: "Please enter your name in the following input step."
