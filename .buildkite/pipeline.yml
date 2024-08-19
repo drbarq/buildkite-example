@@ -11,11 +11,11 @@ steps:
   - label: "Run Script"
     command: script.sh
 
-  - label: "Store NAME in meta-data"
-    command: |
-      NAME=$(buildkite-agent meta-data get NAME)
-      echo "Storing NAME: $NAME"
-      buildkite-agent meta-data set "stored-name" "$NAME"
+  # - label: "Store NAME in meta-data"
+  #   command: |
+  #     NAME=$(buildkite-agent meta-data get NAME)
+  #     echo "Storing NAME: $NAME"
+  #     buildkite-agent meta-data set "stored-name" "$NAME"
 
   - wait: ~
 
