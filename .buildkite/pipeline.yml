@@ -107,7 +107,7 @@ steps:
       # (Optional) Other deployment commands here
       echo "Deployment finished!"
     agents:
-      location: "remote"
+      location: "remote2"
 
   # - label: ":cloud: Deploy to EC2"
   #   command: |
