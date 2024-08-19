@@ -13,10 +13,10 @@ steps:
 
   - wait: ~
 
-  # - label: "Print EnvironmentVariables"
-  #   command: |
-  #     echo "--- :mag: Printing all environment variables"
-  #     env | sort
+  - label: "Print EnvironmentVariables"
+    command: |
+      echo "--- :mag: Printing all environment variables"
+      env | sort
 
   - label: "Docker Login and Run Command"
     plugins:
