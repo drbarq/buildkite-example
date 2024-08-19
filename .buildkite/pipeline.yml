@@ -9,6 +9,8 @@ steps:
       # Add your Docker commands here, for example:
       # docker pull your-image:tag
       # docker run your-image:tag
+    agents:
+      location: "local"
 
   - wait: ~
 
@@ -17,22 +19,30 @@ steps:
       echo "Verifying Docker login..."
       docker info
       docker system info --format '{{.RegistryConfig.IndexConfigs}}'
+    agents:
+      location: "local"
 
   - label: ":docker: Build"
     command: |
       docker-compose build app
       docker images
+    agents:
+      location: "local"
 
   - label: ":arrow_up: Upload Artifact"
     command:
       - ls -la hello_dir
       - "cd hello_dir && go build -o hello_binary"
       - "buildkite-agent artifact upload hello_binary"
+    agents:
+      location: "local"
 
   - label: ":clipboard: Print Build Number"
     command: |
       echo "Build Number: $BUILDKITE_BUILD_NUMBER"
       echo "Pipeline: $BUILDKITE_PIPELINE_SLUG"
+    agents:
+      location: "local"
 
   - wait
 
@@ -47,12 +57,16 @@ steps:
 
   - label: "Run :purescript:"
     command: script.sh
+    agents:
+      location: "local"
 
   - label: "Debug NAME variable"
     command: |
       echo "All meta-data keys:"
       buildkite-agent meta-data keys
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
+    agents:
+      location: "local"
 
   - label: ":runner: Hello Binary with :buildkite: Name"
     command: |
@@ -60,6 +74,8 @@ steps:
       # ls -la
       chmod +x hello_binary
       ./hello_binary $(buildkite-agent meta-data get NAME)
+    agents:
+      location: "local"
 
   - label: ":cloud: Deploy to EC2"
     command: |
@@ -116,6 +132,8 @@ steps:
         # docker-compose up -d --build
         echo "Deployment finished!"
       EOF
+    agents:
+      location: "remote"
 
   - label: ":white_check_mark: Deployment Complete"
     command: echo "Deployment successful!"
