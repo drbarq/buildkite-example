@@ -12,7 +12,7 @@ steps:
     plugins:
       - docker#v3.8.0:
           image: "golang:1.18.0"
-          command: ["go", "build", "-o", "hello"]
+          build: app
 
   - label: ":arrow_up: Upload Artifact"
     command: |
