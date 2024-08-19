@@ -96,7 +96,7 @@ steps:
       chmod +x $(pwd)/hello_dir/hello_binary
       # hello_binary
 
-      ls -la $(pwd)/hello_dir/hello_binary
+      ls -la $(pwd)/hello_dir
 
 
       # Run the binary
