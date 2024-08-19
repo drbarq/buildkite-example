@@ -88,11 +88,13 @@ steps:
       buildkite-agent artifact download hello_binary . --build "$BUILDKITE_BUILD_NUMBER" --pipeline "$BUILDKITE_PIPELINE_SLUG"
 
       # Ensure the binary is executable
-      chmod +x $(pwd)/hello_binary
+      echo "$(pwd)/hello_dir/hello_binary"
+      chmod +x $(pwd)/hello_dir/hello_binary
       # hello_binary
 
       # Run the binary
-      $(pwd)/hello_binary "$buildkite-agent meta-data get NAME}"
+      echo "$(pwd)/hello_dir/hello_binary"
+      $(pwd)/hello_dir/hello_binary "$buildkite-agent meta-data get NAME}"
 
       # (Optional) Other deployment commands here
       echo "Deployment finished!"
