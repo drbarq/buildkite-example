@@ -33,7 +33,7 @@ steps:
 
   - wait
 
-  # this prints out the name
+  # this prints out the name - - $(buildkite-agent meta-data get NAME)
   - label: "Debug and Run Hello Binary with Name"
     command:
       # - $(buildkite-agent meta-data get NAME)
