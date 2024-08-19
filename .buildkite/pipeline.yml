@@ -56,7 +56,6 @@ steps:
       chmod +x hello_binary
       ./hello_binary $(buildkite-agent meta-data get NAME)
 
-steps:
   - label: ":cloud: Deploy to EC2"
     command: |
       echo "Deploying to EC2 instance..."
@@ -91,9 +90,6 @@ steps:
 
   - label: ":white_check_mark: Deployment Complete"
     command: echo "Deployment successful!"
-
-
-
 # old config
 # steps:
 #   - block: "Pause before entering name"
