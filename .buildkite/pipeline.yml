@@ -51,13 +51,13 @@ steps:
   #         password-env: buildkite-agent meta-data get DOCKER_PASSWORD
 
   - wait: ~
-  - label: "Verify Docker Login"
+  - label: "Verify :docker: Login"
     command: |
       echo "Verifying Docker login..."
       docker info
       docker system info --format '{{.RegistryConfig.IndexConfigs}}'
 
-  - label: "Build Docker Image"
+  - label: ":docker: Build"
     command: |
       docker-compose build app
       docker images
@@ -145,7 +145,8 @@ steps:
   - label: "Run Hello Binary with Name"
     command: |
       buildkite-agent artifact download hello_binary .
-      chmod +x hello
+      ls -la
+      # chmod +x hello
       ./hello $(buildkite-agent meta-data get NAME)
 
   - wait
