@@ -57,6 +57,7 @@ steps:
       ./hello_binary $(buildkite-agent meta-data get NAME)
 
 #   - label: ":cloud: Deploy to EC2"
+#   - label: ":cloud: Deploy to EC2"
 #     command: |
 #       echo "Deploying to EC2 instance..."
 #       ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
