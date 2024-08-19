@@ -21,7 +21,7 @@ steps:
   - label: "Docker Login and Run Command"
     plugins:
       - docker-login#v2.0.1:
-          username: ${DOCKER_USERNAME}
+          username: DOCKER_USERNAME
           password-env: DOCKER_LOGIN_PASSWORD
     command: |
       echo "Docker login successful!"
