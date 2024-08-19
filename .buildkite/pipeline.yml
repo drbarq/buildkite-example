@@ -1,14 +1,14 @@
 steps:
-  - label: "Fix Permissions"
-    command: |
-      chmod -R u+w /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3
-  - label: "Clean Workspace"
-    command: |
-      git clean -ffxdq
-      git reset --hard HEAD
-      sudo rm -rf /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3/*
-    agents:
-      location: "remote"
+  # - label: "Fix Permissions"
+  #   command: |
+  #     chmod -R u+w /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3
+  # - label: "Clean Workspace"
+  #   command: |
+  #     git clean -ffxdq
+  #     git reset --hard HEAD
+  #     sudo rm -rf /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3/*
+  #   agents:
+  #     location: "remote"
 
   - label: ":docker: Login and Run Command"
     plugins:
