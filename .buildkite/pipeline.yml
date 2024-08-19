@@ -8,10 +8,26 @@ steps:
         key: "NAME"
         required: true
 
-  - label: "Run Script"
-    command: script.sh
+  - label: ":golang: Build Go App"
+    plugins:
+      - docker#v3.8.0:
+          image: "golang:1.18.0"
+          command:
+            [
+              "sh",
+              "-c",
+              "go build -o hello && buildkite-agent artifact upload hello",
+            ]
 
-  - wait: ~
+  - wait
+
+  - label: "Run Hello Binary with Name"
+    command: |
+      buildkite-agent artifact download hello .
+      chmod +x hello
+      ./hello $(buildkite-agent meta-data get NAME)
+
+  - wait
 
   - label: "Debug NAME variable"
     command: |
@@ -19,16 +35,37 @@ steps:
       buildkite-agent meta-data keys
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
 
-  - label: ":docker: Build"
-    plugins:
-      - docker-compose#v5.3.0:
-          build: app
+# steps:
+#   - block: "Pause before entering name"
+#     prompt: "Please enter your name in the following input step."
 
-  - wait
+#   - input: "Enter your name"
+#     fields:
+#       - text: "Your name"
+#         key: "NAME"
+#         required: true
 
-  - label: "Debug and Run Hello Binary with Name"
-    command:
-      - docker-compose run --rm app $(buildkite-agent meta-data get NAME)
+#   - label: "Run Script"
+#     command: script.sh
+
+#   - wait: ~
+
+#   - label: "Debug NAME variable"
+#     command: |
+#       echo "All meta-data keys:"
+#       buildkite-agent meta-data keys
+#       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
+
+#   - label: ":docker: Build"
+#     plugins:
+#       - docker-compose#v5.3.0:
+#           build: app
+
+#   - wait
+
+#   - label: "Debug and Run Hello Binary with Name"
+#     command:
+#       - docker-compose run --rm app $(buildkite-agent meta-data get NAME)
 # How do use Docker Compose plugin?
 # - label: "Run Hello Binary with Name"
 #   plugins:
