@@ -14,7 +14,7 @@ steps:
   - wait: ~
 
   - label: "set agent env"
-    command: ./run_build.sh
+    # command: ./run_build.sh
     plugins:
       - docker-login#v2.0.1:
           username: DOCKER_USERNAME
