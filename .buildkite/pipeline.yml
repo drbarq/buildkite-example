@@ -81,12 +81,20 @@ steps:
 
   - label: ":cloud: Deploy to EC2"
     command: |
+      # echo "Deploying to EC2 instance..."
+      # pwd
+      # # ls -la ../
+      # ls -la 
+      # ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
+      #   echo "Connected to EC2"
+
       echo "Deploying to EC2 instance..."
-      pwd
-      # ls -la ../
-      ls -la 
-      ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
-        echo "Connected to EC2"
+      echo "$PEM_CONTENT" | base64 -d > ../remote-buildkite.pem
+      chmod 400 ../remote-buildkite.pem
+      ssh -o StrictHostKeyChecking=no -i ../remote-buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
+      echo "Connected to EC2"
+
+
         # Update and install necessary packages
 
       # # Create a temporary directory for debugging
@@ -136,6 +144,8 @@ steps:
       EOF
     agents:
       location: "remote"
+    env:
+      PEM_CONTENT: "$PEM_CONTENT"
 
   - label: ":white_check_mark: Deployment Complete"
     command: echo "Deployment successful!"
