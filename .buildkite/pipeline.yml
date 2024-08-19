@@ -35,6 +35,7 @@ steps:
   - label: "Debug and Run Hello Binary with Name"
     command: |
       echo "Step 1: Retrieve NAME"
+      echo "Raw meta-data output: $(buildkite-agent meta-data get NAME)"
       NAME=$(buildkite-agent meta-data get NAME)
       echo "Retrieved NAME: ${NAME}"
       
