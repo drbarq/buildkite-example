@@ -87,13 +87,23 @@ steps:
   #         build: app
   #         image-repository: bredkrum/app-test-3
   #         push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
+  # - label: ":package: Create Artifact"
+  #   plugins:
+  #     - docker-compose#v3.9.0:
+  #         run: app
+  #         image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
+  #         # image-repository: local
+  #         command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
+  #   artifact_paths:
+  #     - "buildkite/artifacts/hello_binary"
   - label: ":package: Create Artifact"
     plugins:
       - docker-compose#v3.9.0:
           run: app
           image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
-          # image-repository: local
-          command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
+          command: |
+            mkdir -p /buildkite/artifacts/
+            cp /app/hello_binary /buildkite/artifacts/
     artifact_paths:
       - "buildkite/artifacts/hello_binary"
 
