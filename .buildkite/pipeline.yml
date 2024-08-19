@@ -18,7 +18,7 @@ steps:
 
   - label: "Debug Environment"
     command: |
-      echo "Docker username: ${DOCKER_USERNAME:-Not set}"
+      echo "Docker username: ${buildkite-agent meta-data get DOCKER_USERNAME:-Not set}"
       echo "Docker password is set: $([[ -n "${DOCKER_PASSWORD:-}" ]] && echo 'Yes' || echo 'No')"
       echo "All environment variables:"
       env | sort
