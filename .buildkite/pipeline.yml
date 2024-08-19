@@ -83,9 +83,9 @@ steps:
     command: |
       echo "Running on the remote EC2 instance"
 
-      echo $(buildkite-agent meta-data get NAME)
+      echo buildkiteName: $(buildkite-agent meta-data get NAME)
 
-      echo "$(pwd)/hello_dir"
+      cd ec2_app
 
       pwd
       # Download the artifact
