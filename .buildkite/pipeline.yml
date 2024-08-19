@@ -96,6 +96,9 @@ steps:
       chmod +x $(pwd)/hello_dir/hello_binary
       # hello_binary
 
+      ls -la $(pwd)/hello_dir/hello_binary
+
+
       # Run the binary
       # echo "$(pwd)/hello_dir/hello_binary"
       # $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
