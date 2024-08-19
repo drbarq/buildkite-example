@@ -11,14 +11,14 @@ steps:
   - label: "Run Script"
     command: script.sh
 
+  - wait: ~
+
   - label: "set agent env"
     command: agent.sh
     plugins:
       - docker-login#v2.0.1:
           username: DOCKER_USERNAME
           password-env: DOCKER_PASSWORD
-
-  - wait: ~
 
   # - label: "Debug Environment"
   #   command: |
