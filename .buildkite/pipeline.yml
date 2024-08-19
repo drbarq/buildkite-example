@@ -1,4 +1,11 @@
 steps:
+  - label: ":broom: Clean Workspace"
+    command: |
+      git clean -ffxdq
+      git reset --hard HEAD
+    agents:
+      location: "local"
+
   - label: ":docker: Login and Run Command"
     plugins:
       - docker-login#v2.0.1:
