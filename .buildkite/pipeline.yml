@@ -35,8 +35,8 @@ steps:
   - label: "Run Hello Binary with Name"
     command: |
       export NAME=$(buildkite-agent meta-data get NAME)
-      echo "Running Docker with NAME: $NAME"
-      docker-compose run --rm -e NAME="$NAME" app $NAME
+      echo "Running Docker with NAME: ${NAME}"
+      docker-compose run --rm -e NAME="${NAME}" app '"${NAME}"'
 
   # - label: "Run Hello Binary with Name"
   #   command: |
