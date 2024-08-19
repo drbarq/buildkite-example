@@ -142,20 +142,18 @@ steps:
 
   - wait
 
-  - label: "Run Hello Binary with Name"
-    command: |
-      buildkite-agent artifact download hello_binary .
-      ls -la
-      # chmod +x hello
-      hello_binary $(buildkite-agent meta-data get NAME)
-
-  - wait
-
   - label: "Debug NAME variable"
     command: |
       echo "All meta-data keys:"
       buildkite-agent meta-data keys
       echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
+
+  - label: "Run Hello Binary with Name"
+    command: |
+      buildkite-agent artifact download hello_binary .
+      ls -la
+      # chmod +x hello
+      ./hello_binary $(buildkite-agent meta-data get NAME)
 
 # steps:
 #   - block: "Pause before entering name"
