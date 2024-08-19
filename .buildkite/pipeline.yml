@@ -13,10 +13,10 @@ steps:
 
   - wait: ~
 
-  - label: "Print EnvironmentVariables"
-    command: |
-      echo "--- :mag: Printing all environment variables"
-      env | sort
+  # - label: "Print EnvironmentVariables"
+  #   command: |
+  #     echo "--- :mag: Printing all environment variables"
+  #     env | sort
 
   - label: "Docker Login and Run Command"
     plugins:
@@ -50,14 +50,29 @@ steps:
   #         password-env: buildkite-agent meta-data get DOCKER_PASSWORD
 
   - wait: ~
+  - label: "Verify Docker Login"
+    command: |
+      echo "Verifying Docker login..."
+      docker info
+      docker system info --format '{{.RegistryConfig.IndexConfigs}}'
 
-  - label: ":docker: Build Application"
+  - label: ":docker: Build and Push Application"
     plugins:
       - docker-compose#v3.9.0:
           build: app
           image-repository: bredkrum/app-test-3
           push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
+          config:
+            - DOCKER_AUTH_CONFIG:
+                username: ${DOCKER_USERNAME}
+                password: ${DOCKER_LOGIN_PASSWORD}
 
+  # - label: ":docker: Build Application"
+  #   plugins:
+  #     - docker-compose#v3.9.0:
+  #         build: app
+  #         image-repository: bredkrum/app-test-3
+  #         push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
   - label: ":package: Create Artifact"
     plugins:
       - docker-compose#v3.9.0:
