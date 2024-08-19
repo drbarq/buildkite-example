@@ -5,4 +5,6 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
+    volumes:
+      - ./buildkite/artifacts:/buildkite/artifacts
     entrypoint: ["./hello_binary"]

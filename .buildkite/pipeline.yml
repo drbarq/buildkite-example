@@ -8,11 +8,13 @@ steps:
         key: "NAME"
         required: true
 
-  - label: ":golang: Build Go App"
+  - label: ":docker: Build and Create Artifact"
     plugins:
-      - docker#v3.8.0:
-          image: "golang:1.18.0"
-          build: app
+      - docker-compose#v3.9.0:
+          run: app
+          command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
+    artifact_paths:
+      - "hello_binary"
 
     #   - label: ":docker: Build"
   #     plugins:
