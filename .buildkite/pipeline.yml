@@ -19,6 +19,10 @@ steps:
   - label: "Debug Environment"
     command: |
       echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)"
+      echo "Docker password: $(buildkite-agent meta-data get DOCKER_PASSWORD)"
+      env | sort
+      echo "Docker-related environment variables:"
+      env | grep -i docker || echo "No Docker-related environment variables found"
 
   - label: "Docker Login"
     plugins:
