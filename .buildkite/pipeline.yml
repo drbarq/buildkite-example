@@ -11,6 +11,15 @@ steps:
   - label: "Run Script"
     command: script.sh
 
+  - label: "set agent env"
+    command: agent.sh
+
+  - label: "Debug Environment"
+    command: |
+      echo "Docker username: $DOCKER_USERNAME"
+      echo "Docker password is set: $([[ -n $DOCKER_PASSWORD ]] && echo 'Yes' || echo 'No')"
+      env | grep DOCKER
+
   - label: "Docker Login"
     plugins:
       - docker-login#v2.0.1:
