@@ -77,6 +77,8 @@ steps:
     agents:
       location: "local"
 
+  - wait: ~
+
   - label: ":cloud: Deploy to EC2"
     command: |
       echo "Deploying to EC2 instance..."
