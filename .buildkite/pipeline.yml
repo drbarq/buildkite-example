@@ -18,7 +18,7 @@ steps:
       - docker-compose#v3.9.0:
           build: app
           # image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
-          image-repository: local
+          push: app
 
   - label: ":package: Create Artifact"
     plugins:
