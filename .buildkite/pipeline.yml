@@ -102,7 +102,7 @@ steps:
       # Run the binary
       echo "$(pwd)/hello_dir/hello_binary"
       # $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
-      $(pwd)/hello_dir/hello_binary "Joe"
+      # $(pwd)/hello_dir/hello_binary "Joe"
 
       # (Optional) Other deployment commands here
       echo "Deployment finished!"
