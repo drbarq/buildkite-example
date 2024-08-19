@@ -11,14 +11,20 @@ steps:
   - label: "Run Script"
     command: script.sh
 
+  - label: "Docker Login"
+    plugins:
+      - docker-login#v2.0.1:
+          username: jtustin
+          password-env: SKEA_maug2eeff
+
   - wait: ~
 
   - label: ":docker: Build Application"
     plugins:
       - docker-compose#v3.9.0:
           build: app
-          # image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
-          push: app
+          image-repository: bredkrum/app-test-3
+          push: app:${DOCKER_REPO}:${BUILDKITE_BUILD_NUMBER}
 
   - label: ":package: Create Artifact"
     plugins:
