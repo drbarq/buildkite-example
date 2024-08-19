@@ -123,8 +123,8 @@ steps:
   - label: "Build"
     command:
       - "ls -la" # List files in the working directory
-      - "go build -o hello_binary"
-      - "buildkite-agent artifact upload hello_binary"
+      - "go build -o hello_dir/hello_binary"
+      - "buildkite-agent artifact upload hello_dir/hello_binary"
 
     #   - label: ":docker: Build"
   #     plugins:
