@@ -82,6 +82,7 @@ steps:
   - label: ":cloud: Deploy to EC2"
     command: |
       # echo "Deploying to EC2 instance..."
+      # echo "Deploying to EC2 instance..."
       # pwd
       # # ls -la ../
       # ls -la 
