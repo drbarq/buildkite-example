@@ -69,9 +69,10 @@ steps:
         sudo yum update -y
 
         # Install Docker
-        sudo amazon-linux-extras install docker -y
-        sudo service docker start
-        sudo usermod -a -G docker ec2-user
+        sudo dnf install docker -y
+        sudo systemctl start docker
+        sudo systemctl enable docker
+        sudo usermod -aG docker ec2-user
 
         # Install Docker Compose
         sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -84,11 +85,16 @@ steps:
         # Download the artifact from Buildkite
         buildkite-agent artifact download hello_binary .
 
-        # Extract the artifact
-        tar -xzf hello_binary.tar.gz
+        # Make the binary executable
+        chmod +x hello_binary
+        # Run the binary or continue with your deployment
+        ./hello_binary
 
-        # Build and start the containers/services
-        docker-compose up -d --build
+        # # Extract the artifact
+        # tar -xzf hello_binary.tar.gz
+
+        # # Build and start the containers/services
+        # docker-compose up -d --build
         echo "Deployment finished!"
       EOF
 
