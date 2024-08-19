@@ -35,7 +35,8 @@ steps:
 
   - label: "Debug and Run Hello Binary with Name"
     command:
-      - $(buildkite-agent meta-data get NAME)
+      # - $(buildkite-agent meta-data get NAME)
+      - docker-compose run --rm -e app $(buildkite-agent meta-data get NAME)
 
   # - label: "Debug and Run Hello Binary with Name"
   #   command: |
