@@ -89,6 +89,7 @@ steps:
 
       pwd
       # Download the artifact
+      # Download the artifact
       buildkite-agent artifact download hello_binary . --build "$BUILDKITE_BUILD_NUMBER" --pipeline "$BUILDKITE_PIPELINE_SLUG"
 
       # ls -la $(pwd)/hello_dir
