@@ -94,13 +94,13 @@ steps:
         sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
         # Navigate to your application's directory
-        # cd ec2_app
-        cd /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3/
+        cd ec2_app
+        # cd /var/lib/buildkite-agent/builds/ip-172-31-18-0-us-west-1-compute-internal-1/bredkrum/app-test-3/
 
         # Download the artifact from Buildkite
-        buildkite-agent artifact download hello_binary .
+        buildkite-agent artifact download hello_binary . --build "$BUILDKITE_BUILD_NUMBER" --pipeline "$BUILDKITE_PIPELINE_SLUG"
         # buildkite-agent artifact download "*" .
-        buildkite-agent artifact download --help
+        # buildkite-agent artifact download --help
         ls -la
 
         # Make the binary executable
