@@ -139,7 +139,7 @@ steps:
         echo "Deployment finished!"
       EOF
     agents:
-      location: "remote"
+      location: "local"
     env:
       PEM_CONTENT: "$PEM_CONTENT"
 
