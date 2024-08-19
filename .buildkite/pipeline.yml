@@ -14,12 +14,12 @@ steps:
           build: app
 
   - label: ":package: Create Artifact"
-      plugins:
-        - docker-compose#v3.9.0:
-            run: app
-            command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
-      artifact_paths:
-        - "buildkite/artifacts/hello_binary"
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
+    artifact_paths:
+      - "buildkite/artifacts/hello_binary"
 
     #   - label: ":docker: Build"
   #     plugins:
