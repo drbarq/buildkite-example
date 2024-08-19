@@ -11,11 +11,11 @@ steps:
   - label: "Run Script"
     command: script.sh
 
-  # - label: "Store NAME in meta-data"
-  #   command: |
-  #     NAME=$(buildkite-agent meta-data get NAME)
-  #     echo "Storing NAME: $NAME"
-  #     buildkite-agent meta-data set "stored-name" "$NAME"
+  - label: "Store NAME in meta-data"
+    command: |
+      NAME=$(buildkite-agent meta-data get NAME)
+      echo "Storing NAME: $NAME"
+      buildkite-agent meta-data set "stored-name" "$NAME"
 
   - wait: ~
 
@@ -33,14 +33,20 @@ steps:
   - wait
 
   - label: "Run Hello Binary with Name"
-    plugins:
-      - docker-compose#v5.3.0:
-          run: app
-          # command: ["./hello_binary", "$$NAME"]
-          command:
-            - NAME
-          env:
-            - NAME=$(buildkite-agent meta-data get NAME)
+    command: |
+      NAME=$(buildkite-agent meta-data get stored-name)
+      echo "Running Docker with NAME: $NAME"
+      docker-compose run --rm app ./hello_binary "$NAME"
+
+  # - label: "Run Hello Binary with Name"
+  #   plugins:
+  #     - docker-compose#v5.3.0:
+  #         run: app
+  #         # command: ["./hello_binary", "$$NAME"]
+  #         command:
+  #           - NAME
+  #         env:
+  #           - NAME=$(buildkite-agent meta-data get NAME)
 
   # - label: "Run Hello Binary with Name"
   #   plugins:
