@@ -120,7 +120,7 @@ steps:
   #           ]
   #   artifact_paths:
   #     - "buildkite/artifacts/hello_binary"
-  - label: "Build"
+  - label: ":arrow_up: Upload Artifact"
     command:
       - ls -la hello_dir
       - "cd hello_dir && go build -o hello_binary"
@@ -131,9 +131,9 @@ steps:
   #       - docker-compose#v5.3.0:
   #           build: app
 
-  - label: ":arrow_up: Upload Artifact"
-    command: |
-      buildkite-agent artifact upload hello
+  # - label: ":arrow_up: Upload Artifact"
+  #   command: |
+  #     buildkite-agent artifact upload hello
 
   #   - label: ":docker: Build"
   #     plugins:
@@ -144,7 +144,7 @@ steps:
 
   - label: "Run Hello Binary with Name"
     command: |
-      buildkite-agent artifact download hello .
+      buildkite-agent artifact download hello_binary .
       chmod +x hello
       ./hello $(buildkite-agent meta-data get NAME)
 
