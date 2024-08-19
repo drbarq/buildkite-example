@@ -78,6 +78,7 @@ steps:
       location: "local"
 
   - wait: ~
+  # - wait: ~
 
   - label: ":cloud: Download Artifact and Deploy on EC2"
     command: |
