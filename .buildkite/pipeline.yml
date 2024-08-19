@@ -1,95 +1,95 @@
 steps:
-  # - label: ":docker: Login and Run Command"
-  #   plugins:
-  #     - docker-login#v2.0.1:
-  #         username: ${DOCKER_USERNAME}
-  #         password-env: DOCKER_LOGIN_PASSWORD
-  #   command: |
-  #     echo "Docker login successful!"
-  #     # Add your Docker commands here, for example:
-  #     # docker pull your-image:tag
-  #     # docker run your-image:tag
+  - label: ":docker: Login and Run Command"
+    plugins:
+      - docker-login#v2.0.1:
+          username: ${DOCKER_USERNAME}
+          password-env: DOCKER_LOGIN_PASSWORD
+    command: |
+      echo "Docker login successful!"
+      # Add your Docker commands here, for example:
+      # docker pull your-image:tag
+      # docker run your-image:tag
 
-  # - wait: ~
+  - wait: ~
 
-  # - label: "Verify :docker: Login"
-  #   command: |
-  #     echo "Verifying Docker login..."
-  #     docker info
-  #     docker system info --format '{{.RegistryConfig.IndexConfigs}}'
+  - label: "Verify :docker: Login"
+    command: |
+      echo "Verifying Docker login..."
+      docker info
+      docker system info --format '{{.RegistryConfig.IndexConfigs}}'
 
-  # - label: ":docker: Build"
-  #   command: |
-  #     docker-compose build app
-  #     docker images
+  - label: ":docker: Build"
+    command: |
+      docker-compose build app
+      docker images
 
-  # - label: ":arrow_up: Upload Artifact"
-  #   command:
-  #     - ls -la hello_dir
-  #     - "cd hello_dir && go build -o hello_binary"
-  #     - "buildkite-agent artifact upload hello_binary"
+  - label: ":arrow_up: Upload Artifact"
+    command:
+      - ls -la hello_dir
+      - "cd hello_dir && go build -o hello_binary"
+      - "buildkite-agent artifact upload hello_binary"
 
-  # - wait
+  - wait
 
-  # - block: "Pause before entering name"
-  #   prompt: "Please enter your name in the following input step."
+  - block: "Pause before entering name"
+    prompt: "Please enter your name in the following input step."
 
-  # - input: "Enter your name"
-  #   fields:
-  #     - text: "Your name"
-  #       key: "NAME"
-  #       required: true
+  - input: "Enter your name"
+    fields:
+      - text: "Your name"
+        key: "NAME"
+        required: true
 
-  # - label: "Run :purescript:"
-  #   command: script.sh
+  - label: "Run :purescript:"
+    command: script.sh
 
-  # - label: "Debug NAME variable"
-  #   command: |
-  #     echo "All meta-data keys:"
-  #     buildkite-agent meta-data keys
-  #     echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
+  - label: "Debug NAME variable"
+    command: |
+      echo "All meta-data keys:"
+      buildkite-agent meta-data keys
+      echo "NAME from meta-data: $(buildkite-agent meta-data get NAME)"
 
-  # - label: ":runner: Hello Binary with :buildkite: Name"
-  #   command: |
-  #     buildkite-agent artifact download hello_binary .
-  #     # ls -la
-  #     chmod +x hello_binary
-  #     ./hello_binary $(buildkite-agent meta-data get NAME)
+  - label: ":runner: Hello Binary with :buildkite: Name"
+    command: |
+      buildkite-agent artifact download hello_binary .
+      # ls -la
+      chmod +x hello_binary
+      ./hello_binary $(buildkite-agent meta-data get NAME)
 
   #   - label: ":cloud: Deploy to EC2"
   - label: ":cloud: Deploy to EC2"
     command: |
       echo "Deploying to EC2 instance..."
       pwd
-      pwd
       ls -la ../
-      # ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
-        # echo "Connected to EC2"
-        # # Update and install necessary packages
-        # sudo yum update -y
+      ls -la 
+      ssh -o StrictHostKeyChecking=no -i ../buildkite.pem ec2-user@ec2-13-57-11-228.us-west-1.compute.amazonaws.com << 'EOF'
+        echo "Connected to EC2"
+        # Update and install necessary packages
+        sudo yum update -y
 
-        # # Install Docker
-        # sudo amazon-linux-extras install docker -y
-        # sudo service docker start
-        # sudo usermod -a -G docker ec2-user
+        # Install Docker
+        sudo amazon-linux-extras install docker -y
+        sudo service docker start
+        sudo usermod -a -G docker ec2-user
 
-        # # Install Docker Compose
-        # sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        # sudo chmod +x /usr/local/bin/docker-compose
-        # sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+        # Install Docker Compose
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-        # # Navigate to your application's directory
-        # cd ec2_app
+        # Navigate to your application's directory
+        cd ec2_app
 
-        # # Download the artifact from Buildkite
-        # buildkite-agent artifact download hello_binary .
+        # Download the artifact from Buildkite
+        buildkite-agent artifact download hello_binary .
 
-        # # Extract the artifact
-        # tar -xzf hello_binary.tar.gz
+        # Extract the artifact
+        tar -xzf hello_binary.tar.gz
 
-        # # Build and start the containers/services
-        # docker-compose up -d --build
-        # echo "Deployment finished!"
+        # Build and start the containers/services
+        docker-compose up -d --build
+        echo "Deployment finished!"
       EOF
 
   - label: ":white_check_mark: Deployment Complete"
