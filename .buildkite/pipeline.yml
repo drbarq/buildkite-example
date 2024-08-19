@@ -57,16 +57,31 @@ steps:
       docker info
       docker system info --format '{{.RegistryConfig.IndexConfigs}}'
 
-  - label: ":docker: Build and Push Application"
-    plugins:
-      - docker-compose#v3.9.0:
-          build: app
-          image-repository: bredkrum/app-test-3
-          push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
-          config:
-            - DOCKER_AUTH_CONFIG:
-                username: ${DOCKER_USERNAME}
-                password: ${DOCKER_LOGIN_PASSWORD}
+  - label: "Build Docker Image"
+    command: |
+      docker-compose build app
+      docker images
+
+  - label: "Debug Docker Push"
+    command: |
+      echo "Docker info:"
+      docker info
+      echo "Docker login check:"
+      docker login -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_LOGIN_PASSWORD"
+      echo "Manually tagging and pushing image:"
+      docker tag app:latest bredkrum/app-test-3:latest
+      docker push bredkrum/app-test-3:latest
+
+  # - label: ":docker: Build and Push Application"
+  #   plugins:
+  #     - docker-compose#v3.9.0:
+  #         build: app
+  #         image-repository: bredkrum/app-test-3
+  #         push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
+  #         config:
+  #           - DOCKER_AUTH_CONFIG:
+  #               username: ${DOCKER_USERNAME}
+  #               password: ${DOCKER_LOGIN_PASSWORD}
 
   # - label: ":docker: Build Application"
   #   plugins:
