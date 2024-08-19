@@ -18,15 +18,7 @@ steps:
 
   - label: "Debug Environment"
     command: |
-      echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)
-      # echo "Docker password is set: $([[ -n "$(buildkite-agent meta-data get DOCKER_PASSWORD)" ]] && echo 'Yes' || echo 'No')"
-      # echo "All environment variables:"
-      # env | sort
-      # echo "Docker-related environment variables:"
-      # env | grep -i docker || echo "No Docker-related environment variables found"
-      # echo "Meta-data values:"
-      # buildkite-agent meta-data get DOCKER_USERNAME || echo "DOCKER_USERNAME not set in meta-data"
-      # [[ -n "$(buildkite-agent meta-data get DOCKER_PASSWORD)" ]] && echo "DOCKER_PASSWORD is set in meta-data" || echo "DOCKER_PASSWORD not set in meta-data"
+      echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)"
 
   - label: "Docker Login"
     plugins:
@@ -120,3 +112,12 @@ steps:
 #     - docker-compose#v5.3.0:
 #         run: app
 #         command: [$(buildkite-agent meta-data get NAME)]
+
+# echo "Docker password is set: $([[ -n "$(buildkite-agent meta-data get DOCKER_PASSWORD)" ]] && echo 'Yes' || echo 'No')"
+# echo "All environment variables:"
+# env | sort
+# echo "Docker-related environment variables:"
+# env | grep -i docker || echo "No Docker-related environment variables found"
+# echo "Meta-data values:"
+# buildkite-agent meta-data get DOCKER_USERNAME || echo "DOCKER_USERNAME not set in meta-data"
+# [[ -n "$(buildkite-agent meta-data get DOCKER_PASSWORD)" ]] && echo "DOCKER_PASSWORD is set in meta-data" || echo "DOCKER_PASSWORD not set in meta-data"
