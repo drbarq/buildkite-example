@@ -26,7 +26,14 @@ steps:
 
   - wait
 
-  # this prints out the name - - $(buildkite-agent meta-data get NAME)
-  - label: "Debug and Run Hello Binary with Name"
-    command:
-      - docker-compose run --rm app $(buildkite-agent meta-data get NAME)
+  # # this prints out the name - - $(buildkite-agent meta-data get NAME)
+  # - label: "Debug and Run Hello Binary with Name"
+  #   command:
+  #     - docker-compose run --rm app $(buildkite-agent meta-data get NAME)
+
+  - label: "Run Hello Binary with Name"
+    plugins:
+      - docker-compose#v5.3.0:
+          run: app
+          command: [$(buildkite-agent meta-data get NAME]
+          propagate-environment: true
