@@ -8,15 +8,22 @@ steps:
         key: "NAME"
         required: true
 
+  - label: "Run Script"
+    command: script.sh
+
+  - wait: ~
+
   - label: ":docker: Build Application"
     plugins:
       - docker-compose#v3.9.0:
           build: app
+          image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
 
   - label: ":package: Create Artifact"
     plugins:
       - docker-compose#v3.9.0:
           run: app
+          image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
           command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
     artifact_paths:
       - "buildkite/artifacts/hello_binary"
