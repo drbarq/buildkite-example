@@ -1,24 +1,19 @@
 steps:
-  - block: "Pause before entering name"
-    prompt: "Please enter your name in the following input step."
+  # - block: "Pause before entering name"
+  #   prompt: "Please enter your name in the following input step."
 
-  - input: "Enter your name"
-    fields:
-      - text: "Your name"
-        key: "NAME"
-        required: true
+  # - input: "Enter your name"
+  #   fields:
+  #     - text: "Your name"
+  #       key: "NAME"
+  #       required: true
 
-  - label: "Run Script"
-    command: script.sh
+  # - label: "Run :purescript:"
+  #   command: script.sh
 
   - wait: ~
 
-  # - label: "Print EnvironmentVariables"
-  #   command: |
-  #     echo "--- :mag: Printing all environment variables"
-  #     env | sort
-
-  - label: "Docker Login and Run Command"
+  - label: ":docker: Login and Run Command"
     plugins:
       - docker-login#v2.0.1:
           username: ${DOCKER_USERNAME}
@@ -29,28 +24,8 @@ steps:
       # docker pull your-image:tag
       # docker run your-image:tag
 
-  # - label: "set agent  env"
-  #   # command: ./run_build.sh
-  #   plugins:
-  #     - docker-login#v2.0.1:
-  #         # username: DOCKER_USERNAME
-  #         # password-env: DOCKER_LOGIN_PASSWORD
-  #         username: ${DOCKER_USERNAME}
-  #         password-env: DOCKER_LOGIN_PASSWORD
-
-  # - label: "Debug Environment"
-  #   command: |
-  #     echo "Docker username: $(buildkite-agent meta-data get DOCKER_USERNAME)"
-  #     echo "Docker password: $(buildkite-agent meta-data get DOCKER_PASSWORD)"
-  #     env | sort
-
-  # - label: "Docker Login"
-  #   plugins:
-  #     - docker-login#v2.0.1:
-  #         username: { buildkite-agent meta-data get DOCKER_USERNAME }
-  #         password-env: buildkite-agent meta-data get DOCKER_PASSWORD
-
   - wait: ~
+
   - label: "Verify :docker: Login"
     command: |
       echo "Verifying Docker login..."
@@ -62,85 +37,25 @@ steps:
       docker-compose build app
       docker images
 
-  # - label: "Debug Docker Push"
-  #   command: |
-  #     echo "Docker info:"
-  #     docker info
-  #     echo "Docker login check:"
-  #     docker login -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_LOGIN_PASSWORD"
-  #     echo "Manually tagging and pushing image:"
-  #     docker tag app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
-  #     docker push ${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
-  # - label: ":docker: Build and Push Application"
-  #   plugins:
-  #     - docker-compose#v3.9.0:
-  #         build: app
-  #         image-repository: bredkrum/app-test-3
-  #         push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
-  #         config:
-  #           - DOCKER_AUTH_CONFIG:
-  #               username: ${DOCKER_USERNAME}
-  #               password: ${DOCKER_LOGIN_PASSWORD}
-  # - label: ":docker: Build Application"
-  #   plugins:
-  #     - docker-compose#v3.9.0:
-  #         build: app
-  #         image-repository: bredkrum/app-test-3
-  #         push: app:${BUILDKITE_PROJECT_SLUG}:${BUILDKITE_BUILD_NUMBER}
-  # - label: ":package: Create Artifact"
-  #   plugins:
-  #     - docker-compose#v3.9.0:
-  #         run: app
-  #         image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
-  #         # image-repository: local
-  #         command: ["sh", "-c", "cp /app/hello_binary /buildkite/artifacts/"]
-  #   artifact_paths:
-  #     - "buildkite/artifacts/hello_binary"
-  # - label: ":package: Create Artifact"
-  #   plugins:
-  #     - docker-compose#v3.9.0:
-  #         run: app
-  #         image-repository: ${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}
-  #         # command: |
-  #         #   mkdir -p /buildkite/artifacts/
-  #         #   cp /app/hello_binary /buildkite/artifacts/
-  #         command:
-  #           [
-  #             "mkdir",
-  #             "-p",
-  #             "/buildkite/artifacts/",
-  #             "&&",
-  #             "cp",
-  #             "/app/hello_binary",
-  #             "/buildkite/artifacts/",
-  #             "&&",
-  #             "ls",
-  #             "-l",
-  #             "/buildkite/artifacts/",
-  #           ]
-  #   artifact_paths:
-  #     - "buildkite/artifacts/hello_binary"
   - label: ":arrow_up: Upload Artifact"
     command:
       - ls -la hello_dir
       - "cd hello_dir && go build -o hello_binary"
       - "buildkite-agent artifact upload hello_binary"
 
-    #   - label: ":docker: Build"
-  #     plugins:
-  #       - docker-compose#v5.3.0:
-  #           build: app
-
-  # - label: ":arrow_up: Upload Artifact"
-  #   command: |
-  #     buildkite-agent artifact upload hello
-
-  #   - label: ":docker: Build"
-  #     plugins:
-  #       - docker-compose#v5.3.0:
-  #           build: app
-
   - wait
+
+  - block: "Pause before entering name"
+    prompt: "Please enter your name in the following input step."
+
+  - input: "Enter your name"
+    fields:
+      - text: "Your name"
+        key: "NAME"
+        required: true
+
+  - label: "Run :purescript:"
+    command: script.sh
 
   - label: "Debug NAME variable"
     command: |
@@ -152,9 +67,10 @@ steps:
     command: |
       buildkite-agent artifact download hello_binary .
       ls -la
-      chmod +x hello_binary  # Make the binary executable
+      chmod +x hello_binary
       ./hello_binary $(buildkite-agent meta-data get NAME)
 
+# old config
 # steps:
 #   - block: "Pause before entering name"
 #     prompt: "Please enter your name in the following input step."
