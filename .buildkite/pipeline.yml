@@ -85,6 +85,8 @@ steps:
         # Download the artifact from Buildkite
         buildkite-agent artifact download hello_binary .
 
+        ls -la
+
         # Make the binary executable
         chmod +x hello_binary
         # Run the binary or continue with your deployment
