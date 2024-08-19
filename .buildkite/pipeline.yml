@@ -34,7 +34,8 @@ steps:
   - wait
 
   - label: "Debug and Run Hello Binary with Name"
-    command: $(buildkite-agent meta-data get NAME)
+    command:
+      - $(buildkite-agent meta-data get NAME)
 
   # - label: "Debug and Run Hello Binary with Name"
   #   command: |
