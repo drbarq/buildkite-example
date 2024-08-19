@@ -85,7 +85,7 @@ steps:
 
       echo buildkiteName: $(buildkite-agent meta-data get NAME)
 
-      cd ec2_app
+      # cd ec2_app
 
       pwd
       # Download the artifact
@@ -98,10 +98,13 @@ steps:
 
       # ls -la $(pwd)/hello_dir
 
+      # Compile the Go program for the current architecture
+      GOOS=linux GOARCH=amd64 go build -o $(pwd)/hello_dir/hello_binary $(pwd)/hello_dir/hello.go
+
 
       # Run the binary
-      echo "$(pwd)/hello_dir/hello_binary"
-      # $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
+      # echo "$(pwd)/hello_dir/hello_binary"
+      $(pwd)/hello_dir/hello_binary "$(buildkite-agent meta-data get NAME)"
       # $(pwd)/hello_dir/hello_binary "Joe"
 
       # (Optional) Other deployment commands here
